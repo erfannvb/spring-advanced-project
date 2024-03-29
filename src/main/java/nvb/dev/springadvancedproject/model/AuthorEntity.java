@@ -17,7 +17,7 @@ import java.util.Set;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AuthorModel extends AuditEntity {
+public class AuthorEntity extends AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +35,8 @@ public class AuthorModel extends AuditEntity {
 
     private Integer age;
 
-    @OneToMany(mappedBy = "authorModel")
+    @OneToMany(mappedBy = "author")
     @Builder.Default
-    private Set<BookModel> bookModelSet = new HashSet<>();
+    private Set<BookEntity> books = new HashSet<>();
 
 }
