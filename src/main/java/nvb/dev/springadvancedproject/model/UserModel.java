@@ -54,7 +54,8 @@ public class UserModel implements UserDetails {
     @Column(name = "user_role", nullable = false)
     private UserRole userRole;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userModel")
+    @Builder.Default
     private Set<BookModel> bookModelSet = new HashSet<>();
 
     @Override

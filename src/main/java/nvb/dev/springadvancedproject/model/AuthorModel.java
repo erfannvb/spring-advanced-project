@@ -35,7 +35,8 @@ public class AuthorModel extends AuditEntity {
 
     private Integer age;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "authorModel")
+    @Builder.Default
     private Set<BookModel> bookModelSet = new HashSet<>();
 
 }
