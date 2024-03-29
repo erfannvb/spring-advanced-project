@@ -2,7 +2,7 @@ package nvb.dev.springadvancedproject.dto.response;
 
 import lombok.Builder;
 import lombok.Data;
-import nvb.dev.springadvancedproject.model.BookModel;
+import nvb.dev.springadvancedproject.model.BookEntity;
 import nvb.dev.springadvancedproject.model.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,7 +22,7 @@ public class UserResponse implements UserDetails {
     private String username;
     private String password;
     private UserRole userRole;
-    private Set<BookModel> bookModelSet;
+    private Set<BookEntity> books;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
