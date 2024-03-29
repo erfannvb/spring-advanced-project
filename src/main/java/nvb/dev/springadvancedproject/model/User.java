@@ -26,6 +26,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "VARCHAR(255)")
     private String id;
 
     @NotEmpty(message = "firstName cannot be empty.")
