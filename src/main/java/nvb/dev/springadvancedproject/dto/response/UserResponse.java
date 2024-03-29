@@ -1,5 +1,6 @@
 package nvb.dev.springadvancedproject.dto.response;
 
+import lombok.Builder;
 import lombok.Data;
 import nvb.dev.springadvancedproject.model.UserRole;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
+@Builder
 public class UserResponse implements UserDetails {
 
     private Long id;
