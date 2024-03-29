@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,22 +29,22 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @NotEmpty(message = "firstName cannot be empty.")
+    @NotNull(message = "firstName cannot be null.")
     @NotBlank(message = "firstName cannot be blank.")
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @NotEmpty(message = "lastName cannot be empty.")
+    @NotNull(message = "lastName cannot be null.")
     @NotBlank(message = "lastName cannot be blank.")
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @NotEmpty(message = "username cannot be empty.")
+    @NotNull(message = "username cannot be null.")
     @NotBlank(message = "username cannot be blank.")
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @NotEmpty(message = "password cannot be empty.")
+    @NotNull(message = "password cannot be null.")
     @NotBlank(message = "password cannot be blank.")
     @Column(name = "password", nullable = false)
     private String password;
