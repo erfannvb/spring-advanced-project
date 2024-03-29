@@ -24,7 +24,7 @@ import java.util.Set;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class User implements UserDetails {
+public class UserModel implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,7 +55,7 @@ public class User implements UserDetails {
     private UserRole userRole;
 
     @OneToMany(mappedBy = "user")
-    private Set<Book> bookSet = new HashSet<>();
+    private Set<BookModel> bookModelSet = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
