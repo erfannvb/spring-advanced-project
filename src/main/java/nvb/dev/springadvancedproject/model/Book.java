@@ -51,4 +51,8 @@ public class Book extends AuditEntity {
     @JoinColumn(name = "author_id")
     private Author author;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }
