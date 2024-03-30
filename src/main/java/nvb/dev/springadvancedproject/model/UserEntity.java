@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -54,6 +55,7 @@ public class UserEntity implements UserDetails {
 
     @NotNull(message = "password cannot be null.")
     @NotBlank(message = "password cannot be blank.")
+    @Size(min = 3, message = "password must at least contain 3 characters.")
     @Column(name = "password", nullable = false)
     private String password;
 
