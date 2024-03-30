@@ -25,9 +25,9 @@ public class UserController {
 
     @PostMapping(path = "/save")
     public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto userDto) {
-        UserEntity userEntity = userMapper.mapToUserEntity(userDto);
+        UserEntity userEntity = userMapper.toUserEntity(userDto);
         UserEntity savedUser = userService.saveUser(userEntity);
-        return new ResponseEntity<>(userMapper.mapToUserDto(savedUser), HttpStatus.CREATED);
+        return new ResponseEntity<>(userMapper.toUserDto(savedUser), HttpStatus.CREATED);
     }
 
 }
