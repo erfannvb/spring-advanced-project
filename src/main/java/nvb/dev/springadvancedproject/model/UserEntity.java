@@ -2,6 +2,7 @@ package nvb.dev.springadvancedproject.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -27,8 +28,8 @@ import java.util.Set;
 public class UserEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @NotNull(message = "firstName cannot be null.")
     @NotBlank(message = "firstName cannot be blank.")
@@ -44,6 +45,12 @@ public class UserEntity implements UserDetails {
     @NotBlank(message = "username cannot be blank.")
     @Column(name = "username", nullable = false, unique = true)
     private String username;
+
+    @NotNull(message = "email cannot be null.")
+    @NotBlank(message = "email cannot be blank.")
+    @Column(name = "email", nullable = false, unique = true)
+    @Email
+    private String email;
 
     @NotNull(message = "password cannot be null.")
     @NotBlank(message = "password cannot be blank.")
