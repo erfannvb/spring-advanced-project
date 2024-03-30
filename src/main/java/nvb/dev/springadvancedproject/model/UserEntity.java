@@ -1,5 +1,6 @@
 package nvb.dev.springadvancedproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -65,6 +66,7 @@ public class UserEntity implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     @Builder.Default
+    @JsonIgnore
     private Set<BookEntity> books = new HashSet<>();
 
     @Override
