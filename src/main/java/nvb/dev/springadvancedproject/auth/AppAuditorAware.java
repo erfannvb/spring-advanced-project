@@ -1,6 +1,6 @@
 package nvb.dev.springadvancedproject.auth;
 
-import nvb.dev.springadvancedproject.model.UserModel;
+import nvb.dev.springadvancedproject.model.UserEntity;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -20,7 +20,7 @@ public class AppAuditorAware implements AuditorAware<String> {
             return Optional.empty();
         }
 
-        UserModel userModelPrincipal = (UserModel) authentication.getPrincipal();
-        return Optional.ofNullable(userModelPrincipal.getUsername());
+        UserEntity userEntityPrincipal = (UserEntity) authentication.getPrincipal();
+        return Optional.ofNullable(userEntityPrincipal.getUsername());
     }
 }
