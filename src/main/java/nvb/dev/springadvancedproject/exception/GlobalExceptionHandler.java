@@ -18,8 +18,8 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({UserNotFoundException.class, NoUsersException.class})
-    public ResponseEntity<ErrorResponseModel> handleNotFoundException(RuntimeException ex) {
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponseModel> handlerUserNotFoundException(RuntimeException ex) {
         ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
                 .title("error")
                 .detail(ex.getLocalizedMessage())
