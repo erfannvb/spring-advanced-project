@@ -7,6 +7,7 @@ import nvb.dev.springadvancedproject.mapper.UserMapper;
 import nvb.dev.springadvancedproject.model.UserEntity;
 import nvb.dev.springadvancedproject.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,9 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @PostMapping(path = "/save")
+    @PostMapping(path = "/save",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto userDto) {
         UserEntity userEntity = userMapper.toUserEntity(userDto);
         UserEntity savedUser = userService.saveUser(userEntity);
