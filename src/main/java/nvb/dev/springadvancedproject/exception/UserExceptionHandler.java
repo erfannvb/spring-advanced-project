@@ -35,7 +35,7 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   @NonNull HttpStatusCode status,
                                                                   @NonNull WebRequest request) {
 
-        List<String> list = ex.getBindingResult()
+        List<String> errorList = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -43,7 +43,7 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
 
         ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
                 .title("validation error")
-                .details(list)
+                .details(errorList)
                 .status(HttpStatus.BAD_REQUEST.value())
                 .timestamp(LocalDateTime.now())
                 .build();
