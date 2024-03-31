@@ -1,5 +1,6 @@
 package nvb.dev.springadvancedproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -37,6 +38,7 @@ public class AuthorEntity extends AuditEntity {
 
     @OneToMany(mappedBy = "author")
     @Builder.Default
+    @JsonIgnore
     private Set<BookEntity> books = new HashSet<>();
 
 }
