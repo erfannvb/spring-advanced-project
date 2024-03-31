@@ -5,10 +5,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import nvb.dev.springadvancedproject.model.BookEntity;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Data
-public class AuthorDto {
+public class AuthorDto implements Serializable {
 
     private Long id;
 
