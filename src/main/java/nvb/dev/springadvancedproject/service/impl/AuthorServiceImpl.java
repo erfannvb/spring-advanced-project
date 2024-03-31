@@ -8,12 +8,15 @@ import nvb.dev.springadvancedproject.model.AuthorEntity;
 import nvb.dev.springadvancedproject.model.UserEntity;
 import nvb.dev.springadvancedproject.repository.AuthorRepository;
 import nvb.dev.springadvancedproject.service.AuthorService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -36,12 +39,16 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(key = "#id", value = "author")
     public Optional<AuthorEntity> getAuthorById(Long id) {
         return Optional.ofNullable(authorRepository.findById(id)
                 .orElseThrow(AuthorNotFoundException::new));
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "authorList")
     public Iterable<AuthorEntity> getAllAuthors(int page, int size) {
         if (page < 0) throw new IllegalArgumentException("Page must be greater than 0.");
         if (size < 1) throw new IllegalArgumentException("Size must be greater than 0.");
@@ -53,6 +60,8 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "authorList")
     public Iterable<AuthorEntity> getAllAuthors(int page, int size, String sortProperty) {
         if (page < 0) throw new IllegalArgumentException("Page must be greater than 0.");
         if (size < 1) throw new IllegalArgumentException("Size must be greater than 0.");
@@ -85,7 +94,7 @@ public class AuthorServiceImpl implements AuthorService {
         Optional<AuthorEntity> foundAuthor = authorRepository.findById(id);
         if (foundAuthor.isPresent()) {
             authorEntity.forEach((key, value) -> {
-                Field field = ReflectionUtils.findField(UserEntity.class, key);
+                Field field = ReflectionUtils.findField(AuthorEntity.class, key);
                 assert field != null;
                 field.setAccessible(true);
                 ReflectionUtils.setField(field, foundAuthor.get(), value);
@@ -96,6 +105,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @CacheEvict(key = "#id", value = "author", beforeInvocation = true)
     public void deleteAuthor(Long id) {
         authorRepository.findById(id)
                 .ifPresentOrElse(
