@@ -18,6 +18,17 @@ import java.util.List;
 @ControllerAdvice
 public class AuthorExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(AuthorNotFoundException.class)
+    public ResponseEntity<ErrorResponseModel> handleAuthorNotFoundException(RuntimeException ex) {
+        ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
+                .title("not found")
+                .detail(ex.getLocalizedMessage())
+                .status(HttpStatus.NOT_FOUND.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(errorResponseModel, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(EntityNotStorableException.class)
     public ResponseEntity<ErrorResponseModel> handleEntityNotStorableException(RuntimeException ex) {
         ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
