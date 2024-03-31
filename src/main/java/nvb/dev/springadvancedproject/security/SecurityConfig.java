@@ -17,8 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static nvb.dev.springadvancedproject.constant.Constant.AUTH_URL;
-import static nvb.dev.springadvancedproject.constant.Constant.USER_URL;
+import static nvb.dev.springadvancedproject.constant.Constant.*;
 
 @Configuration
 @EnableWebSecurity
@@ -36,6 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(USER_URL).permitAll()
                         .requestMatchers(AUTH_URL).permitAll()
+                        .requestMatchers(AUTHOR_URL).authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
