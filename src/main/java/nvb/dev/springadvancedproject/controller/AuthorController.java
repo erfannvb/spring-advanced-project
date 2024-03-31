@@ -39,7 +39,7 @@ public class AuthorController {
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping(path = "/authors/simple")
+    @GetMapping(path = "/all/simple")
     public ResponseEntity<Iterable<AuthorDto>> getAllAuthors(
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size
@@ -50,7 +50,7 @@ public class AuthorController {
         return new ResponseEntity<>(authorDtoIterator, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/authors/bySort")
+    @GetMapping(path = "/all/bySort")
     public ResponseEntity<Iterable<AuthorDto>> getAllAuthors(
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size,
