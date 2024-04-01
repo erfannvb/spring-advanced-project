@@ -3,9 +3,9 @@ package nvb.dev.springadvancedproject.service.impl;
 import lombok.RequiredArgsConstructor;
 import nvb.dev.springadvancedproject.exception.AuthorNotFoundException;
 import nvb.dev.springadvancedproject.exception.EntityNotStorableException;
+import nvb.dev.springadvancedproject.exception.NoAuthorsFoundException;
 import nvb.dev.springadvancedproject.exception.WrongSortingPropertyException;
 import nvb.dev.springadvancedproject.model.AuthorEntity;
-import nvb.dev.springadvancedproject.model.UserEntity;
 import nvb.dev.springadvancedproject.repository.AuthorRepository;
 import nvb.dev.springadvancedproject.service.AuthorService;
 import org.springframework.cache.annotation.CacheEvict;
@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -114,5 +115,27 @@ public class AuthorServiceImpl implements AuthorService {
                             throw new AuthorNotFoundException();
                         }
                 );
+    }
+
+    @Override
+    public long getNumberOfAuthors() {
+        List<AuthorEntity> authorEntityList = authorRepository.findAll();
+        if (authorEntityList.isEmpty()) throw new NoAuthorsFoundException();
+        return authorEntityList.size();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<AuthorEntity> getAuthorByFirstName(String firstName) {
+        return Optional.ofNullable(authorRepository.findByFirstNameIgnoreCase(firstName)
+                .orElseThrow(AuthorNotFoundException::new));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<AuthorEntity> getAuthorByAgeBetween(int minAge, int maxAge) {
+        List<AuthorEntity> authorEntityList = authorRepository.findAll();
+        if (authorEntityList.isEmpty()) throw new NoAuthorsFoundException();
+        return authorRepository.findByAgeBetween(minAge, maxAge);
     }
 }
