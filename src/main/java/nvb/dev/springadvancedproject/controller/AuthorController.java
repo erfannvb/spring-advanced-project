@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -79,6 +80,29 @@ public class AuthorController {
     public ResponseEntity<HttpStatus> deleteAuthor(@PathVariable Long id) {
         authorService.deleteAuthor(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(path = "/count")
+    public ResponseEntity<Map<String, Long>> getNumberOfAuthors() {
+        Map<String, Long> authors = new HashMap<>();
+        authors.put("Number of Authors", authorService.getNumberOfAuthors());
+        return new ResponseEntity<>(authors, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/filter/name")
+    public ResponseEntity<AuthorDto> getAuthorByFirstName(@RequestParam String firstName) {
+        Optional<AuthorEntity> authorByFirstName = authorService.getAuthorByFirstName(firstName);
+        return authorByFirstName.map(authorEntity -> {
+            AuthorDto authorDto = authorMapper.toAuthorDto(authorEntity);
+            return new ResponseEntity<>(authorDto, HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping(path = "/filter/age")
+    public ResponseEntity<List<AuthorDto>> getAuthorByAgeBetween(@RequestParam int minAge, @RequestParam int maxAge) {
+        List<AuthorEntity> authorByAgeBetween = authorService.getAuthorByAgeBetween(minAge, maxAge);
+        List<AuthorDto> authorDtoList = authorByAgeBetween.stream().map(authorMapper::toAuthorDto).toList();
+        return new ResponseEntity<>(authorDtoList, HttpStatus.OK);
     }
 
 }
