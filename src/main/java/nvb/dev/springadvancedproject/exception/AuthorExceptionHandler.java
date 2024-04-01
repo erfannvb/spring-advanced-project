@@ -18,7 +18,7 @@ import java.util.List;
 @ControllerAdvice
 public class AuthorExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(AuthorNotFoundException.class)
+    @ExceptionHandler({AuthorNotFoundException.class, NoAuthorsFoundException.class})
     public ResponseEntity<ErrorResponseModel> handleAuthorNotFoundException(RuntimeException ex) {
         ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
                 .title("not found")
