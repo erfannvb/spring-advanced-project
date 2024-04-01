@@ -55,7 +55,7 @@ public class AuthorServiceImpl implements AuthorService {
         if (size < 1) throw new IllegalArgumentException("Size must be greater than 0.");
         Page<AuthorEntity> result = authorRepository.findAll(PageRequest.of(page, size));
         if (page > result.getTotalPages()) throw new IllegalArgumentException(
-                STR."For the given size the page must be less than/equal to \{result.getTotalPages()}."
+                "For the given size the page must be less than/equal to %d.".formatted(result.getTotalPages())
         );
         return result;
     }
