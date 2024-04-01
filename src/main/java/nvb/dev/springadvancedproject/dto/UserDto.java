@@ -7,10 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import nvb.dev.springadvancedproject.model.BookEntity;
 import nvb.dev.springadvancedproject.model.UserRole;
-
-import java.util.Set;
 
 @Data
 public class UserDto {
@@ -41,7 +38,5 @@ public class UserDto {
 
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
-
-    private Set<BookEntity> books;
 
 }

@@ -1,6 +1,5 @@
 package nvb.dev.springadvancedproject.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -16,9 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "tbl_users")
@@ -63,11 +60,6 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role", nullable = false)
     private UserRole userRole;
-
-    @OneToMany(mappedBy = "user")
-    @Builder.Default
-    @JsonIgnore
-    private Set<BookEntity> books = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
