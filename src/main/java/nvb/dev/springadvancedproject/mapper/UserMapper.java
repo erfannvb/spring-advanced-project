@@ -16,7 +16,6 @@ public interface UserMapper {
     @Mapping(source = "userEntity.email", target = "email")
     @Mapping(source = "userEntity.password", target = "password")
     @Mapping(source = "userEntity.userRole", target = "userRole")
-    @Mapping(source = "userEntity.books", target = "books")
     UserDto toUserDto(UserEntity userEntity);
 
     @Mapping(source = "userDto.id", target = "id")
@@ -26,7 +25,6 @@ public interface UserMapper {
     @Mapping(source = "userDto.email", target = "email")
     @Mapping(source = "userDto.password", target = "password")
     @Mapping(source = "userDto.userRole", target = "userRole")
-    @Mapping(source = "userDto.books", target = "books")
     UserEntity toUserEntity(UserDto userDto);
 
 }
