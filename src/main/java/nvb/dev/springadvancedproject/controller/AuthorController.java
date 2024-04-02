@@ -8,6 +8,7 @@ import nvb.dev.springadvancedproject.model.AuthorEntity;
 import nvb.dev.springadvancedproject.service.AuthorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import java.util.stream.StreamSupport;
 @RestController
 @RequestMapping(path = "/api/author")
 @RequiredArgsConstructor
+@Validated
 public class AuthorController {
 
     private final AuthorService authorService;
