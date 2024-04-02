@@ -1,12 +1,13 @@
 package nvb.dev.springadvancedproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BookEntity extends AuditEntity {
+public class BookEntity extends AuditEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +36,6 @@ public class BookEntity extends AuditEntity {
 
     private int pages;
 
-    @Size(max = 5)
     private float rating;
 
     @ElementCollection
@@ -49,6 +49,7 @@ public class BookEntity extends AuditEntity {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
+    @JsonIgnore
     private AuthorEntity author;
 
 }

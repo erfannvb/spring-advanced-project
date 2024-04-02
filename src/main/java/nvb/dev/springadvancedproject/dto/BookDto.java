@@ -9,12 +9,13 @@ import lombok.Builder;
 import lombok.Data;
 import nvb.dev.springadvancedproject.model.AuthorEntity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @Builder
-public class BookDto {
+public class BookDto implements Serializable {
 
     private Long id;
 
@@ -28,7 +29,6 @@ public class BookDto {
 
     private int pages;
 
-    @Size(max = 5)
     private float rating;
 
     private List<String> genres;
