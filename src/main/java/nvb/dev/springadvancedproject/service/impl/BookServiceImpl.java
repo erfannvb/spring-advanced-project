@@ -1,7 +1,10 @@
 package nvb.dev.springadvancedproject.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import nvb.dev.springadvancedproject.exception.*;
+import nvb.dev.springadvancedproject.exception.AuthorNotFoundException;
+import nvb.dev.springadvancedproject.exception.BookNotFoundException;
+import nvb.dev.springadvancedproject.exception.EntityNotStorableException;
+import nvb.dev.springadvancedproject.exception.WrongSortingPropertyException;
 import nvb.dev.springadvancedproject.model.AuthorEntity;
 import nvb.dev.springadvancedproject.model.BookEntity;
 import nvb.dev.springadvancedproject.repository.AuthorRepository;
@@ -74,10 +77,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookEntity updateBook(long bookId, BookEntity bookEntity) {
-        Optional<BookEntity> foundBook = bookRepository.findById(bookId);
-        if (foundBook.isPresent()) {
-            BookEntity existingBook = foundBook.get();
+    public BookEntity updateBook(long bookId, long authorId, BookEntity bookEntity) {
+        Optional<BookEntity> foundBookOptional = bookRepository.findById(bookId);
+        if (foundBookOptional.isPresent()) {
+            BookEntity existingBook = foundBookOptional.get();
 
             existingBook.setTitle(bookEntity.getTitle());
             existingBook.setIsbn(bookEntity.getIsbn());
@@ -85,7 +88,15 @@ public class BookServiceImpl implements BookService {
             existingBook.setRating(bookEntity.getRating());
             existingBook.setGenres(bookEntity.getGenres());
             existingBook.setPublishedYear(bookEntity.getPublishedYear());
-            existingBook.setAuthor(bookEntity.getAuthor());
+
+            if (authorId != 0) {
+                Optional<AuthorEntity> updatedAuthorOptional = authorRepository.findById(authorId);
+                if (updatedAuthorOptional.isPresent()) {
+                    existingBook.setAuthor(updatedAuthorOptional.get());
+                } else {
+                    throw new AuthorNotFoundException(authorId);
+                }
+            }
 
             return bookRepository.save(existingBook);
 
@@ -95,18 +106,33 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookEntity partialUpdate(long bookId, Map<String, Object> bookEntity) {
-        Optional<BookEntity> foundBook = bookRepository.findById(bookId);
-        if (foundBook.isPresent()) {
+    public BookEntity partialUpdate(long bookId, long authorId, Map<String, Object> bookEntity) {
+        Optional<BookEntity> foundBookOptional = bookRepository.findById(bookId);
+        if (foundBookOptional.isPresent()) {
+            BookEntity existingBook = foundBookOptional.get();
+
             bookEntity.forEach((key, value) -> {
                 Field field = ReflectionUtils.findField(BookEntity.class, key);
-                assert field != null;
-                field.setAccessible(true);
-                ReflectionUtils.setField(field, foundBook.get(), value);
+                if (field != null) {
+                    field.setAccessible(true);
+                    ReflectionUtils.setField(field, existingBook, value);
+                }
             });
-            return bookRepository.save(foundBook.get());
+
+            if (authorId != 0) {
+                Optional<AuthorEntity> updatedAuthorOptional = authorRepository.findById(authorId);
+                if (updatedAuthorOptional.isPresent()) {
+                    existingBook.setAuthor(updatedAuthorOptional.get());
+                } else {
+                    throw new AuthorNotFoundException(authorId);
+                }
+            }
+
+            return bookRepository.save(existingBook);
+
+        } else {
+            throw new BookNotFoundException();
         }
-        throw new BookNotFoundException();
     }
 
     @Override
