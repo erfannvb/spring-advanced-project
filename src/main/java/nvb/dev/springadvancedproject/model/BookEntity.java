@@ -47,7 +47,7 @@ public class BookEntity extends AuditEntity {
     @Temporal(TemporalType.DATE)
     private LocalDate publishedYear;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "author_id")
     private AuthorEntity author;
 
