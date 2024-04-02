@@ -8,6 +8,7 @@ import nvb.dev.springadvancedproject.exception.WrongSortingPropertyException;
 import nvb.dev.springadvancedproject.model.AuthorEntity;
 import nvb.dev.springadvancedproject.repository.AuthorRepository;
 import nvb.dev.springadvancedproject.service.AuthorService;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -26,6 +27,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheManager = "redisCacheManager")
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
@@ -125,6 +127,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Cacheable(key = "#firstName", value = "author")
     @Transactional(readOnly = true)
     public Optional<AuthorEntity> getAuthorByFirstName(String firstName) {
         return Optional.ofNullable(authorRepository.findByFirstNameIgnoreCase(firstName)
@@ -132,6 +135,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Cacheable(value = "author")
     @Transactional(readOnly = true)
     public List<AuthorEntity> getAuthorByAgeBetween(int minAge, int maxAge) {
         List<AuthorEntity> authorEntityList = authorRepository.findAll();
