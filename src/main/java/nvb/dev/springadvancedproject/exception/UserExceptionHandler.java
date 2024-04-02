@@ -18,6 +18,18 @@ import java.util.List;
 @ControllerAdvice
 public class UserExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(UsernameExistsException.class)
+    public ResponseEntity<ErrorResponseModel> handleUsernameExistsException(RuntimeException ex) {
+        ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
+                .title("username exists")
+                .detail(ex.getLocalizedMessage())
+                .status(HttpStatus.NOT_ACCEPTABLE.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(errorResponseModel, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponseModel> handleErrorNotFoundException(RuntimeException ex) {
         ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
