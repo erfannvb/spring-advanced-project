@@ -18,9 +18,9 @@ public interface BookService {
 
     List<BookEntity> getBooksByAuthorId(long authorId);
 
-    BookEntity updateBook(long bookId, BookEntity bookEntity);
+    BookEntity updateBook(long bookId, long authorId, BookEntity bookEntity);
 
-    BookEntity partialUpdate(long bookId, Map<String, Object> bookEntity);
+    BookEntity partialUpdate(long bookId, long authorId, Map<String, Object> bookEntity);
 
     void deleteBookByAuthorId(long authorId);
 
