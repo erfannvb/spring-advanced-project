@@ -37,7 +37,7 @@ public class AuthorEntity extends AuditEntity implements Serializable {
 
     private Integer age;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     @Builder.Default
     @JsonIgnore
     private Set<BookEntity> books = new HashSet<>();
