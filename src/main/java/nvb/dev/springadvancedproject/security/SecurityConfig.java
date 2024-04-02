@@ -36,6 +36,7 @@ public class SecurityConfig {
                         .requestMatchers(USER_URL).permitAll()
                         .requestMatchers(AUTH_URL).permitAll()
                         .requestMatchers(AUTHOR_URL).authenticated()
+                        .requestMatchers(BOOK_URL).authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
