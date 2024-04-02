@@ -6,6 +6,7 @@ import lombok.Data;
 import nvb.dev.springadvancedproject.model.BookEntity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -22,6 +23,7 @@ public class AuthorDto implements Serializable {
     private String lastName;
 
     private Integer age;
-    private Set<BookEntity> books;
+
+    private List<BookEntity> books;
 
 }

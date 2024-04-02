@@ -8,7 +8,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
@@ -37,9 +39,9 @@ public class AuthorEntity extends AuditEntity implements Serializable {
 
     private Integer age;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Builder.Default
     @JsonIgnore
-    private Set<BookEntity> books = new HashSet<>();
+    private List<BookEntity> books = new ArrayList<>();
 
 }
