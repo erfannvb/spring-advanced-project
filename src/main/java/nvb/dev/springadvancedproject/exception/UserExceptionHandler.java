@@ -35,19 +35,21 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   @NonNull HttpStatusCode status,
                                                                   @NonNull WebRequest request) {
 
-        List<String> errorList = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .toList();
-
         ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
                 .title("validation error")
-                .details(errorList)
+                .details(getErrorList(ex))
                 .status(HttpStatus.BAD_REQUEST.value())
                 .timestamp(LocalDateTime.now())
                 .build();
 
         return new ResponseEntity<>(errorResponseModel, HttpStatus.BAD_REQUEST);
+    }
+
+    private List<String> getErrorList(@NonNull MethodArgumentNotValidException ex) {
+        return ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .toList();
     }
 }
