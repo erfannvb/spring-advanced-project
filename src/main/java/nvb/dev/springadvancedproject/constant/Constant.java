@@ -8,6 +8,7 @@ public class Constant {
     public static final String USER_URL = "/api/user/**";
     public static final String AUTH_URL = "/api/auth/**";
     public static final String AUTHOR_URL = "/api/author/**";
+    public static final String BOOK_URL = "/api/book/**";
 
     public static final int TOKEN_EXPIRATION_TIME = 1000 * 60 * 24;
     public static final int REFRESH_TOKEN_EXPIRATION_TIME = 604800000;
