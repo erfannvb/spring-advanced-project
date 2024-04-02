@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LoanEntity extends AuditEntity {
+public class LoanEntity extends AuditEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
