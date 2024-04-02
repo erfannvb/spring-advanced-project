@@ -10,12 +10,16 @@ import nvb.dev.springadvancedproject.model.BookEntity;
 import nvb.dev.springadvancedproject.repository.AuthorRepository;
 import nvb.dev.springadvancedproject.repository.BookRepository;
 import nvb.dev.springadvancedproject.service.BookService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -25,6 +29,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheManager = "redisCacheManager")
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
@@ -42,12 +47,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(key = "#bookId", value = "book")
     public Optional<BookEntity> getBookById(long bookId) {
         return Optional.ofNullable(bookRepository.findById(bookId)
                 .orElseThrow(BookNotFoundException::new));
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "bookList")
     public Iterable<BookEntity> getAllBooks(int page, int size) {
         if (page < 0) throw new IllegalArgumentException("Page must be greater than 0.");
         if (size < 1) throw new IllegalArgumentException("Size must be greater than 0.");
@@ -59,6 +68,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "bookList")
     public Iterable<BookEntity> getAllBooks(int page, int size, String sortProperty) {
         if (page < 0) throw new IllegalArgumentException("Page must be greater than 0.");
         if (size < 1) throw new IllegalArgumentException("Size must be greater than 0.");
@@ -70,6 +81,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(key = "#authorId", value = "book")
     public List<BookEntity> getBooksByAuthorId(long authorId) {
         Optional<AuthorEntity> authorEntity = authorRepository.findById(authorId);
         if (authorEntity.isEmpty()) throw new AuthorNotFoundException(authorId);
@@ -136,6 +149,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @CacheEvict(key = "#authorId", value = "book", beforeInvocation = true)
     public void deleteBookByAuthorId(long authorId) {
         Optional<AuthorEntity> optionalAuthor = authorRepository.findById(authorId);
         if (optionalAuthor.isPresent()) {
