@@ -5,7 +5,7 @@ import jakarta.persistence.TemporalType;
 import lombok.Builder;
 import lombok.Data;
 import nvb.dev.springadvancedproject.model.BookEntity;
-import nvb.dev.springadvancedproject.model.UserEntity;
+import nvb.dev.springadvancedproject.model.MemberEntity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,9 +20,12 @@ public class LoanDto implements Serializable {
     private LocalDate loanDate;
 
     @Temporal(TemporalType.DATE)
+    private LocalDate dueDate;
+
+    @Temporal(TemporalType.DATE)
     private LocalDate returnDate;
 
-    private UserEntity user;
+    private MemberEntity member;
 
     private BookEntity book;
 

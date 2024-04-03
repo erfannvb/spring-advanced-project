@@ -34,8 +34,8 @@ public class LoanEntity extends AuditEntity implements Serializable {
     private LocalDate returnDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @JoinColumn(name = "member_id")
+    private MemberEntity member;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
