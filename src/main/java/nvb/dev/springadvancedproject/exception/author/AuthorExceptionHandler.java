@@ -1,5 +1,7 @@
-package nvb.dev.springadvancedproject.exception;
+package nvb.dev.springadvancedproject.exception.author;
 
+import nvb.dev.springadvancedproject.exception.EntityNotStorableException;
+import nvb.dev.springadvancedproject.exception.ErrorResponseModel;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,7 +20,7 @@ import java.util.List;
 @ControllerAdvice
 public class AuthorExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({AuthorNotFoundException.class, NoAuthorsFoundException.class})
+    @ExceptionHandler(AuthorNotFoundException.class)
     public ResponseEntity<ErrorResponseModel> handleAuthorNotFoundException(RuntimeException ex) {
         ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
                 .title("not found")
