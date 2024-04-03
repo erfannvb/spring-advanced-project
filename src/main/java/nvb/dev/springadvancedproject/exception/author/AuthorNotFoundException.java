@@ -9,6 +9,7 @@ import static nvb.dev.springadvancedproject.constant.ExceptionMessage.NO_AUTHORS
 public class AuthorNotFoundException extends RuntimeException {
 
     private static final String ERROR_MESSAGE = "Author with id '%d' does not exist.";
+    private static final String FIRST_NAME_MESSAGE = "'%s' does not exist.";
 
     public AuthorNotFoundException() {
         super(NO_AUTHORS_FOUND);
@@ -16,5 +17,9 @@ public class AuthorNotFoundException extends RuntimeException {
 
     public AuthorNotFoundException(Long id) {
         super(ERROR_MESSAGE.formatted(id));
+    }
+
+    public AuthorNotFoundException(String firstName) {
+        super(FIRST_NAME_MESSAGE.formatted(firstName));
     }
 }
