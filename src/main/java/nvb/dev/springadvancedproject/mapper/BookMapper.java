@@ -17,6 +17,8 @@ public interface BookMapper {
     @Mapping(source = "bookEntity.genres", target = "genres")
     @Mapping(source = "bookEntity.publishedYear", target = "publishedYear")
     @Mapping(source = "bookEntity.author", target = "author")
+    @Mapping(source = "bookEntity.member", target = "member")
+    @Mapping(source = "bookEntity.loans", target = "loans")
     BookDto toBookDto(BookEntity bookEntity);
 
     @Mapping(source = "bookDto.id", target = "id")
@@ -27,6 +29,8 @@ public interface BookMapper {
     @Mapping(source = "bookDto.genres", target = "genres")
     @Mapping(source = "bookDto.publishedYear", target = "publishedYear")
     @Mapping(source = "bookDto.author", target = "author")
+    @Mapping(source = "bookDto.member", target = "member")
+    @Mapping(source = "bookDto.loans", target = "loans")
     BookEntity toBookEntity(BookDto bookDto);
 
 }
