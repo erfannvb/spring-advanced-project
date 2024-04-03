@@ -1,7 +1,7 @@
 package nvb.dev.springadvancedproject.security.impl;
 
 import lombok.RequiredArgsConstructor;
-import nvb.dev.springadvancedproject.exception.UserNotFoundException;
+import nvb.dev.springadvancedproject.exception.user.UserNotFoundException;
 import nvb.dev.springadvancedproject.model.UserEntity;
 import nvb.dev.springadvancedproject.repository.UserRepository;
 import nvb.dev.springadvancedproject.security.AuthService;

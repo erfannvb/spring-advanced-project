@@ -1,7 +1,7 @@
 package nvb.dev.springadvancedproject.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import nvb.dev.springadvancedproject.exception.UsernameExistsException;
+import nvb.dev.springadvancedproject.exception.user.UsernameExistsException;
 import nvb.dev.springadvancedproject.model.UserEntity;
 import nvb.dev.springadvancedproject.repository.UserRepository;
 import nvb.dev.springadvancedproject.service.UserService;
