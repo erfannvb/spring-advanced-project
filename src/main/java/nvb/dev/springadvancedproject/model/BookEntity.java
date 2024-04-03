@@ -60,6 +60,7 @@ public class BookEntity extends AuditEntity implements Serializable {
 
     @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
     @JsonIgnore
+    @Builder.Default
     private List<LoanEntity> loans = new ArrayList<>();
 
 }
