@@ -1,10 +1,9 @@
 package nvb.dev.springadvancedproject.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import nvb.dev.springadvancedproject.exception.AuthorNotFoundException;
 import nvb.dev.springadvancedproject.exception.EntityNotStorableException;
-import nvb.dev.springadvancedproject.exception.NoAuthorsFoundException;
 import nvb.dev.springadvancedproject.exception.WrongSortingPropertyException;
+import nvb.dev.springadvancedproject.exception.author.AuthorNotFoundException;
 import nvb.dev.springadvancedproject.model.AuthorEntity;
 import nvb.dev.springadvancedproject.repository.AuthorRepository;
 import nvb.dev.springadvancedproject.service.AuthorService;
@@ -46,7 +45,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Cacheable(key = "#id", value = "author")
     public Optional<AuthorEntity> getAuthorById(Long id) {
         return Optional.ofNullable(authorRepository.findById(id)
-                .orElseThrow(AuthorNotFoundException::new));
+                .orElseThrow(() -> new AuthorNotFoundException(id)));
     }
 
     @Override
@@ -88,7 +87,7 @@ public class AuthorServiceImpl implements AuthorService {
             return authorRepository.save(existingAuthor);
 
         } else {
-            throw new AuthorNotFoundException();
+            throw new AuthorNotFoundException(id);
         }
     }
 
@@ -104,7 +103,7 @@ public class AuthorServiceImpl implements AuthorService {
             });
             return authorRepository.save(foundAuthor.get());
         }
-        throw new AuthorNotFoundException();
+        throw new AuthorNotFoundException(id);
     }
 
     @Override
@@ -114,7 +113,7 @@ public class AuthorServiceImpl implements AuthorService {
                 .ifPresentOrElse(
                         _ -> authorRepository.deleteById(id),
                         () -> {
-                            throw new AuthorNotFoundException();
+                            throw new AuthorNotFoundException(id);
                         }
                 );
     }
@@ -122,7 +121,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public long getNumberOfAuthors() {
         List<AuthorEntity> authorEntityList = authorRepository.findAll();
-        if (authorEntityList.isEmpty()) throw new NoAuthorsFoundException();
+        if (authorEntityList.isEmpty()) throw new AuthorNotFoundException();
         return authorEntityList.size();
     }
 
@@ -139,7 +138,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional(readOnly = true)
     public List<AuthorEntity> getAuthorByAgeBetween(int minAge, int maxAge) {
         List<AuthorEntity> authorEntityList = authorRepository.findAll();
-        if (authorEntityList.isEmpty()) throw new NoAuthorsFoundException();
+        if (authorEntityList.isEmpty()) throw new AuthorNotFoundException();
         return authorRepository.findByAgeBetween(minAge, maxAge);
     }
 }

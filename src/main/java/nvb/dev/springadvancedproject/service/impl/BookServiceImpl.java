@@ -1,8 +1,8 @@
 package nvb.dev.springadvancedproject.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import nvb.dev.springadvancedproject.exception.AuthorNotFoundException;
-import nvb.dev.springadvancedproject.exception.BookNotFoundException;
+import nvb.dev.springadvancedproject.exception.author.AuthorNotFoundException;
+import nvb.dev.springadvancedproject.exception.book.BookNotFoundException;
 import nvb.dev.springadvancedproject.exception.EntityNotStorableException;
 import nvb.dev.springadvancedproject.exception.WrongSortingPropertyException;
 import nvb.dev.springadvancedproject.model.AuthorEntity;
@@ -51,7 +51,7 @@ public class BookServiceImpl implements BookService {
     @Cacheable(key = "#bookId", value = "book")
     public Optional<BookEntity> getBookById(long bookId) {
         return Optional.ofNullable(bookRepository.findById(bookId)
-                .orElseThrow(BookNotFoundException::new));
+                .orElseThrow(() -> new BookNotFoundException(bookId)));
     }
 
     @Override
@@ -114,7 +114,7 @@ public class BookServiceImpl implements BookService {
             return bookRepository.save(existingBook);
 
         } else {
-            throw new BookNotFoundException();
+            throw new BookNotFoundException(bookId);
         }
     }
 
@@ -144,7 +144,7 @@ public class BookServiceImpl implements BookService {
             return bookRepository.save(existingBook);
 
         } else {
-            throw new BookNotFoundException();
+            throw new BookNotFoundException(bookId);
         }
     }
 
