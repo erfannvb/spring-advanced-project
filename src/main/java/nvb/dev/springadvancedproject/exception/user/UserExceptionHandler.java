@@ -1,5 +1,6 @@
-package nvb.dev.springadvancedproject.exception;
+package nvb.dev.springadvancedproject.exception.user;
 
+import nvb.dev.springadvancedproject.exception.ErrorResponseModel;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,10 +17,22 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @ControllerAdvice
-public class BookExceptionHandler extends ResponseEntityExceptionHandler {
+public class UserExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({BookNotFoundException.class, NoBooksFoundException.class})
-    public ResponseEntity<ErrorResponseModel> handleBookNotFoundException(RuntimeException ex) {
+    @ExceptionHandler(UsernameExistsException.class)
+    public ResponseEntity<ErrorResponseModel> handleUsernameExistsException(RuntimeException ex) {
+        ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
+                .title("username exists")
+                .detail(ex.getLocalizedMessage())
+                .status(HttpStatus.NOT_ACCEPTABLE.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(errorResponseModel, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponseModel> handleErrorNotFoundException(RuntimeException ex) {
         ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
                 .title("not found")
                 .detail(ex.getLocalizedMessage())
@@ -27,17 +40,6 @@ public class BookExceptionHandler extends ResponseEntityExceptionHandler {
                 .timestamp(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(errorResponseModel, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(EntityNotStorableException.class)
-    public ResponseEntity<ErrorResponseModel> handleEntityNotStorableException(RuntimeException ex) {
-        ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
-                .title("save error")
-                .detail(ex.getLocalizedMessage())
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .timestamp(LocalDateTime.now())
-                .build();
-        return new ResponseEntity<>(errorResponseModel, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override

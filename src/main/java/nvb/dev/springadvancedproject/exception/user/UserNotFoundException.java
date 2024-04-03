@@ -1,4 +1,4 @@
-package nvb.dev.springadvancedproject.exception;
+package nvb.dev.springadvancedproject.exception.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
