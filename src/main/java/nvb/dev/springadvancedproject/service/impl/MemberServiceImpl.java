@@ -7,8 +7,12 @@ import nvb.dev.springadvancedproject.exception.member.MemberNotFoundException;
 import nvb.dev.springadvancedproject.model.MemberEntity;
 import nvb.dev.springadvancedproject.repository.MemberRepository;
 import nvb.dev.springadvancedproject.service.MemberService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -18,6 +22,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheManager = "redisCacheManager")
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
@@ -34,18 +39,24 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(key = "#memberId", value = "member")
     public Optional<MemberEntity> getMemberById(long memberId) {
         return Optional.ofNullable(memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberNotFoundException(memberId)));
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(key = "#fullName", value = "member")
     public Optional<MemberEntity> getMemberByFullName(String fullName) {
         return Optional.ofNullable(memberRepository.findMemberByFullNameIgnoreCase(fullName)
                 .orElseThrow(() -> new MemberNotFoundException(fullName)));
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "memberList")
     public List<MemberEntity> getAllMembers() {
         List<MemberEntity> memberEntityList = memberRepository.findAll();
         if (memberEntityList.isEmpty()) throw new MemberNotFoundException();
@@ -90,6 +101,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @CacheEvict(key = "#memberId", value = "member", beforeInvocation = true)
     public void deleteMember(long memberId) {
         Optional<MemberEntity> optionalMember = memberRepository.findById(memberId);
         optionalMember.ifPresentOrElse(
