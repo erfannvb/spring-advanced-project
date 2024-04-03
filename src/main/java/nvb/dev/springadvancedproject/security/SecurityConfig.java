@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers(AUTHOR_URL).authenticated()
                         .requestMatchers(BOOK_URL).authenticated()
                         .requestMatchers(MEMBER_URL).authenticated()
+                        .requestMatchers(LOAN_URL).authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
