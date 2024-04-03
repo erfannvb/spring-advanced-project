@@ -130,7 +130,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional(readOnly = true)
     public Optional<AuthorEntity> getAuthorByFirstName(String firstName) {
         return Optional.ofNullable(authorRepository.findByFirstNameIgnoreCase(firstName)
-                .orElseThrow(AuthorNotFoundException::new));
+                .orElseThrow(() -> new AuthorNotFoundException(firstName)));
     }
 
     @Override
