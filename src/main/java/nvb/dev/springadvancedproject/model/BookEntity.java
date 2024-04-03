@@ -9,6 +9,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -51,5 +52,14 @@ public class BookEntity extends AuditEntity implements Serializable {
     @JoinColumn(name = "author_id")
     @JsonIgnore
     private AuthorEntity author;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    @JsonIgnore
+    private MemberEntity member;
+
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<LoanEntity> loans = new ArrayList<>();
 
 }
