@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static nvb.dev.springadvancedproject.MotherObject.anyValidAuthorDto;
-import static nvb.dev.springadvancedproject.MotherObject.anyValidAuthorEntity;
+import static nvb.dev.springadvancedproject.MotherObject.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -32,14 +31,7 @@ class AuthorMapperTest {
 
     @Test
     void toAuthorDto_Null_Fields() {
-        AuthorEntity authorEntity = anyValidAuthorEntity();
-        authorEntity.setId(null);
-        authorEntity.setFirstName(null);
-        authorEntity.setLastName(null);
-        authorEntity.setAge(null);
-        authorEntity.setBooks(null);
-
-        AuthorDto authorDto = authorMapper.toAuthorDto(authorEntity);
+        AuthorDto authorDto = authorMapper.toAuthorDto(anyInvalidAuthorEntity());
 
         assertNull(authorDto.getId());
         assertNull(authorDto.getFirstName());
@@ -66,14 +58,7 @@ class AuthorMapperTest {
 
     @Test
     void toAuthorEntity_Null_Fields() {
-        AuthorDto authorDto = anyValidAuthorDto();
-        authorDto.setId(null);
-        authorDto.setFirstName(null);
-        authorDto.setLastName(null);
-        authorDto.setAge(null);
-        authorDto.setBooks(null);
-
-        AuthorEntity authorEntity = authorMapper.toAuthorEntity(authorDto);
+        AuthorEntity authorEntity = authorMapper.toAuthorEntity(anyInvalidAuthorDto());
 
         assertNull(authorEntity.getId());
         assertNull(authorEntity.getFirstName());
