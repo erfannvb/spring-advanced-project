@@ -2,6 +2,7 @@ package nvb.dev.springadvancedproject.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 import nvb.dev.springadvancedproject.model.BookEntity;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@Builder
 public class AuthorDto implements Serializable {
 
     private Long id;
