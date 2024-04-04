@@ -13,6 +13,7 @@ public interface MemberMapper {
     @Mapping(source = "memberEntity.fullName", target = "fullName")
     @Mapping(source = "memberEntity.email", target = "email")
     @Mapping(source = "memberEntity.address", target = "address")
+    @Mapping(source = "memberEntity.type", target = "type")
     @Mapping(source = "memberEntity.borrowedBooks", target = "borrowedBooks")
     MemberDto toMemberDto(MemberEntity memberEntity);
 
@@ -20,6 +21,7 @@ public interface MemberMapper {
     @Mapping(source = "memberDto.fullName", target = "fullName")
     @Mapping(source = "memberDto.email", target = "email")
     @Mapping(source = "memberDto.address", target = "address")
+    @Mapping(source = "memberDto.type", target = "type")
     @Mapping(source = "memberDto.borrowedBooks", target = "borrowedBooks")
     MemberEntity toMemberEntity(MemberDto memberDto);
 
