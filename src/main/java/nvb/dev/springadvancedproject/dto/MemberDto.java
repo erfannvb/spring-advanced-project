@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
+import nvb.dev.springadvancedproject.annotation.MemberType;
 import nvb.dev.springadvancedproject.model.Address;
 import nvb.dev.springadvancedproject.model.BookEntity;
 
@@ -27,6 +28,9 @@ public class MemberDto implements Serializable {
     private String email;
 
     private Address address;
+
+    @MemberType
+    private String type;
 
     private List<BookEntity> borrowedBooks;
 

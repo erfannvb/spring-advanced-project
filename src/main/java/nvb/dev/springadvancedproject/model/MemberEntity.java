@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import nvb.dev.springadvancedproject.annotation.MemberType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,6 +38,9 @@ public class MemberEntity extends AuditEntity implements Serializable {
 
     @Embedded
     private Address address;
+
+    @MemberType
+    private String type;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     @JsonIgnore
