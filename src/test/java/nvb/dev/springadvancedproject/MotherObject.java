@@ -5,7 +5,9 @@ import nvb.dev.springadvancedproject.model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MotherObject {
 
@@ -257,6 +259,13 @@ public class MotherObject {
                 .password(null)
                 .userRole(null)
                 .build();
+    }
+
+    public static Map<String, Object> anyValidMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("fullName", "dummy dummy");
+        map.put("email", "dummy@dummy.com");
+        return map;
     }
 
 }
