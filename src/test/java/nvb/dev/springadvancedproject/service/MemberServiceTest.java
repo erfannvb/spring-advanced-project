@@ -16,8 +16,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static nvb.dev.springadvancedproject.MotherObject.anyValidMap;
 import static nvb.dev.springadvancedproject.MotherObject.anyValidMemberEntity;
+import static nvb.dev.springadvancedproject.MotherObject.anyValidMemberMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -149,7 +149,7 @@ class MemberServiceTest {
         when(memberRepository.findById(anyLong())).thenReturn(Optional.of(anyValidMemberEntity()));
         when(memberRepository.save(any(MemberEntity.class))).thenReturn(anyValidMemberEntity());
 
-        MemberEntity memberEntity = memberService.partialUpdate(123, anyValidMap());
+        MemberEntity memberEntity = memberService.partialUpdate(123, anyValidMemberMap());
 
         assertEquals("dummy dummy", memberEntity.getFullName());
         assertEquals("dummy@dummy.com", memberEntity.getEmail());
@@ -163,7 +163,7 @@ class MemberServiceTest {
         when(memberRepository.findById(anyLong())).thenReturn(Optional.empty());
         when(memberRepository.save(any(MemberEntity.class))).thenReturn(anyValidMemberEntity());
 
-        assertThrows(MemberNotFoundException.class, () -> memberService.partialUpdate(123, anyValidMap()));
+        assertThrows(MemberNotFoundException.class, () -> memberService.partialUpdate(123, anyValidMemberMap()));
         verify(memberRepository, atLeastOnce()).findById(anyLong());
         verify(memberRepository, never()).save(any(MemberEntity.class));
     }
