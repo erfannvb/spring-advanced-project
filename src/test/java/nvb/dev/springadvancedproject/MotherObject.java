@@ -25,6 +25,15 @@ public class MotherObject {
 
     public static final String ANY_STRING = "anyString";
 
+    public static final int ANY_VALID_PAGE = 0;
+    public static final int ANY_INVALID_PAGE = -1;
+    public static final int ANOTHER_INVALID_PAGE = 2;
+    public static final int ANY_VALID_SIZE = 10;
+    public static final int ANY_INVALID_SIZE = 0;
+
+    public static final String ANY_VALID_SORT_PROPERTY = "lastName";
+    public static final String ANY_INVALID_SORT_PROPERTY = "invalidProperty";
+
     public static AuthorEntity anyValidAuthorEntity() {
         return AuthorEntity.builder()
                 .id(ANY_ID)
@@ -261,10 +270,17 @@ public class MotherObject {
                 .build();
     }
 
-    public static Map<String, Object> anyValidMap() {
+    public static Map<String, Object> anyValidMemberMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("fullName", "dummy dummy");
         map.put("email", "dummy@dummy.com");
+        return map;
+    }
+
+    public static Map<String, Object> anyValidAuthorMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("firstName", "updateFirstName");
+        map.put("lastName", "updateLastName");
         return map;
     }
 
