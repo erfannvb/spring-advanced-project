@@ -88,7 +88,6 @@ public class MemberServiceImpl implements MemberService {
 
             memberEntity.forEach((key, value) -> {
                 Field field = ReflectionUtils.findField(MemberEntity.class, key);
-                assert field != null;
                 field.setAccessible(true);
                 ReflectionUtils.setField(field, foundMember.get(), value);
             });
