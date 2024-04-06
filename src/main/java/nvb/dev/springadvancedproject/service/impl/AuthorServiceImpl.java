@@ -97,7 +97,6 @@ public class AuthorServiceImpl implements AuthorService {
         if (foundAuthor.isPresent()) {
             authorEntity.forEach((key, value) -> {
                 Field field = ReflectionUtils.findField(AuthorEntity.class, key);
-                assert field != null;
                 field.setAccessible(true);
                 ReflectionUtils.setField(field, foundAuthor.get(), value);
             });
