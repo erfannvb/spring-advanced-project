@@ -284,4 +284,11 @@ public class MotherObject {
         return map;
     }
 
+    public static Map<String, Object> anyValidBookMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("title", "updatedTitle");
+        map.put("isbn", "updatedIsbn");
+        return map;
+    }
+
 }
