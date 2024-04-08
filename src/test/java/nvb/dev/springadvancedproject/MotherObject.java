@@ -82,10 +82,10 @@ public class MotherObject {
                 .pages(50)
                 .rating(5)
                 .genres(List.of("Fiction", "Adult", "Romance"))
-                .publishedYear(LocalDate.now())
-                .author(new AuthorEntity())
-                .member(new MemberEntity())
-                .loans(new ArrayList<>())
+                .publishedYear(LocalDate.of(2017, 5, 17))
+                .author(anyValidAuthorEntity())
+                .member(anyValidMemberEntity())
+                .loans(List.of(anyValidLoanEntity()))
                 .build();
     }
 
