@@ -88,9 +88,9 @@ public class BookController {
         return new ResponseEntity<>(bookMapper.toBookDto(bookEntity), HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/author/{authorId}")
-    public ResponseEntity<HttpStatus> deleteBookByAuthorId(@PathVariable long authorId) {
-        bookService.deleteBookByAuthorId(authorId);
+    @DeleteMapping(path = "/{bookId}/author/{authorId}")
+    public ResponseEntity<HttpStatus> deleteBookByAuthorId(@PathVariable long bookId, @PathVariable long authorId) {
+        bookService.deleteBookByAuthorId(bookId, authorId);
         return ResponseEntity.noContent().build();
     }
 
