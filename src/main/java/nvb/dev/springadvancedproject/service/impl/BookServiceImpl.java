@@ -38,8 +38,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookEntity saveBook(long authorId, BookEntity bookEntity) {
         try {
-            AuthorEntity author = unwrapAuthor(authorRepository.findById(authorId), authorId);
-            bookEntity.setAuthor(author);
+            AuthorEntity authorEntity = unwrapAuthor(authorRepository.findById(authorId), authorId);
+            bookEntity.setAuthor(authorEntity);
             return bookRepository.save(bookEntity);
         } catch (DataIntegrityViolationException e) {
             throw new EntityNotStorableException();
@@ -82,7 +82,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(key = "#authorId", value = "book")
+    @Cacheable(cacheNames = "bookList")
     public List<BookEntity> getBooksByAuthorId(long authorId) {
         Optional<AuthorEntity> authorEntity = authorRepository.findById(authorId);
         if (authorEntity.isEmpty()) throw new AuthorNotFoundException(authorId);
@@ -144,12 +144,22 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @CacheEvict(key = "#authorId", value = "book", beforeInvocation = true)
-    public void deleteBookByAuthorId(long authorId) {
-        Optional<AuthorEntity> optionalAuthor = authorRepository.findById(authorId);
-        if (optionalAuthor.isPresent()) {
-            bookRepository.deleteBookByAuthorId(authorId);
+    public void deleteBookByAuthorId(long bookId, long authorId) {
+        Optional<BookEntity> foundBook = bookRepository.findById(bookId);
+        if (foundBook.isPresent()) {
+            Optional<AuthorEntity> optionalAuthor = authorRepository.findById(authorId);
+            if (optionalAuthor.isPresent()) {
+                AuthorEntity authorEntity = optionalAuthor.get();
+                List<BookEntity> books = authorEntity.getBooks();
+                for (BookEntity book : books) {
+                    book.setAuthor(null);
+                    bookRepository.delete(book);
+                }
+            } else {
+                throw new AuthorNotFoundException(authorId);
+            }
         } else {
-            throw new AuthorNotFoundException(authorId);
+            throw new BookNotFoundException(bookId);
         }
     }
 
