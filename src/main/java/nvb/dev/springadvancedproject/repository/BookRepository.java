@@ -4,7 +4,6 @@ import nvb.dev.springadvancedproject.model.BookEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,8 +12,5 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     @Query("SELECT b FROM BookEntity b WHERE b.author.id = :authorId")
     List<BookEntity> findBookByAuthorId(long authorId);
-
-    @Transactional
-    void deleteBookByAuthorId(long authorId);
 
 }
