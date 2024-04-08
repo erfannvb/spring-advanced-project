@@ -312,8 +312,8 @@ class BookServiceTest {
 
         bookService.deleteBookByAuthorId(bookId, authorId);
 
-        verify(bookRepository, atLeastOnce()).delete(bookEntity);
         assertNull(bookEntity.getAuthor());
+        verify(bookRepository, atLeastOnce()).delete(bookEntity);
     }
 
     @Test
