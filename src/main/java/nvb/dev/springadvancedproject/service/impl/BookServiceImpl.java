@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -146,28 +145,17 @@ public class BookServiceImpl implements BookService {
     @Override
     @CacheEvict(key = "#authorId", value = "book", beforeInvocation = true)
     public void deleteBookByAuthorId(long bookId, long authorId) {
-        Optional<AuthorEntity> optionalAuthor = authorRepository.findById(authorId);
-        if (optionalAuthor.isPresent()) {
-            AuthorEntity authorEntity = optionalAuthor.get();
-            List<BookEntity> books = authorEntity.getBooks();
-            Iterator<BookEntity> iterator = books.iterator();
-            boolean bookFound = false;
-            while (iterator.hasNext()) {
-                BookEntity book = iterator.next();
-                if (book.getId() == bookId) {
-                    book.setAuthor(null);
-                    iterator.remove();
-                    bookRepository.delete(book);
-                    bookFound = true;
-                    break;
-                }
-            }
-            if (!bookFound) {
-                throw new BookNotFoundException(bookId);
-            }
-        } else {
-            throw new AuthorNotFoundException(authorId);
-        }
+        AuthorEntity authorEntity = authorRepository.findById(authorId)
+                .orElseThrow(AuthorNotFoundException::new);
+
+        BookEntity bookToDelete = authorEntity.getBooks().stream()
+                .filter(book -> book.getId().equals(bookId))
+                .findFirst()
+                .orElseThrow(BookNotFoundException::new);
+
+        authorEntity.getBooks().remove(bookToDelete);
+        bookToDelete.setAuthor(null);
+        bookRepository.delete(bookToDelete);
     }
 
 
