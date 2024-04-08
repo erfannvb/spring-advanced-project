@@ -22,6 +22,6 @@ public interface BookService {
 
     BookEntity partialUpdate(long bookId, long authorId, Map<String, Object> bookEntity);
 
-    void deleteBookByAuthorId(long authorId);
+    void deleteBookByAuthorId(long bookId, long authorId);
 
 }
