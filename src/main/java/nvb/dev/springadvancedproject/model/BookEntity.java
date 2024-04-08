@@ -28,7 +28,6 @@ public class BookEntity extends AuditEntity implements Serializable {
 
     @NotNull(message = "title cannot be null.")
     @NotBlank(message = "title cannot be blank.")
-    @Column(unique = true)
     private String title;
 
     @NotNull(message = "isbn cannot be null.")
@@ -39,7 +38,7 @@ public class BookEntity extends AuditEntity implements Serializable {
 
     private float rating;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "book_genres", joinColumns = @JoinColumn(name = "book_id"))
     @Column(name = "genres")
     private List<String> genres;
