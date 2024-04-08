@@ -4,6 +4,7 @@ import nvb.dev.springadvancedproject.exception.EntityNotStorableException;
 import nvb.dev.springadvancedproject.exception.WrongSortingPropertyException;
 import nvb.dev.springadvancedproject.exception.author.AuthorNotFoundException;
 import nvb.dev.springadvancedproject.exception.book.BookNotFoundException;
+import nvb.dev.springadvancedproject.model.AuthorEntity;
 import nvb.dev.springadvancedproject.model.BookEntity;
 import nvb.dev.springadvancedproject.repository.AuthorRepository;
 import nvb.dev.springadvancedproject.repository.BookRepository;
@@ -300,22 +301,44 @@ class BookServiceTest {
 
     @Test
     void testDeleteBookByAuthorIdDeletesTheBookOfTheExistingAuthor() {
-        when(authorRepository.findById(anyLong())).thenReturn(Optional.of(anyValidAuthorEntity()));
-        when(bookRepository.save(any(BookEntity.class))).thenReturn(anyValidBookEntity());
+        long authorId = ANY_ID;
+        long bookId = ANY_ID;
 
-        bookService.deleteBookByAuthorId(1L);
+        AuthorEntity authorEntity = anyValidAuthorEntity();
+        BookEntity bookEntity = anyValidBookEntity();
+        authorEntity.getBooks().add(bookEntity);
 
-        verify(authorRepository, atLeastOnce()).findById(anyLong());
-        verify(bookRepository, atLeastOnce()).deleteBookByAuthorId(anyLong());
+        when(authorRepository.findById(authorId)).thenReturn(Optional.of(authorEntity));
+
+        bookService.deleteBookByAuthorId(bookId, authorId);
+
+        verify(bookRepository, atLeastOnce()).delete(bookEntity);
+        assertNull(bookEntity.getAuthor());
     }
 
     @Test
     void testDeleteBookByAuthorIdThrowsAuthorNotFoundException() {
-        when(authorRepository.findById(anyLong())).thenReturn(Optional.empty());
+        long authorId = ANY_ID;
+        long bookId = ANY_ID;
 
-        assertThrows(AuthorNotFoundException.class, () -> bookService.deleteBookByAuthorId(1L));
+        when(authorRepository.findById(authorId)).thenReturn(Optional.empty());
+
+        assertThrows(AuthorNotFoundException.class, () -> bookService.deleteBookByAuthorId(bookId, authorId));
+
         verify(authorRepository, atLeastOnce()).findById(anyLong());
-        verify(bookRepository, never()).deleteBookByAuthorId(anyLong());
+        verify(bookRepository, never()).delete(any());
+    }
+
+    @Test
+    void testDeleteBookByAuthorIdThrowsBookNotFoundException() {
+        long authorId = ANY_ID;
+        long bookId = ANY_ID;
+
+        when(authorRepository.findById(anyLong())).thenReturn(Optional.of(anyValidAuthorEntity()));
+
+        assertThrows(BookNotFoundException.class, () -> bookService.deleteBookByAuthorId(bookId, authorId));
+
+        verify(bookRepository, never()).save(any());
     }
 
 }
