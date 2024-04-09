@@ -19,6 +19,29 @@ import java.util.List;
 @ControllerAdvice
 public class UserExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler({WrongPasswordException.class, PasswordsNotMatchException.class})
+    public ResponseEntity<ErrorResponseModel> handleChangePasswordExceptions(RuntimeException ex) {
+        ErrorResponseModel errorResponseModel = null;
+
+        if (ex instanceof WrongPasswordException) {
+            errorResponseModel = ErrorResponseModel.builder()
+                    .title("Wrong Password")
+                    .detail(ex.getLocalizedMessage())
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .timestamp(LocalDateTime.now())
+                    .build();
+        } else if (ex instanceof PasswordsNotMatchException) {
+            errorResponseModel = ErrorResponseModel.builder()
+                    .title("Passwords Not Match")
+                    .detail(ex.getLocalizedMessage())
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .timestamp(LocalDateTime.now())
+                    .build();
+        }
+
+        return new ResponseEntity<>(errorResponseModel, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(UsernameExistsException.class)
     public ResponseEntity<ErrorResponseModel> handleUsernameExistsException(RuntimeException ex) {
         ErrorResponseModel errorResponseModel = ErrorResponseModel.builder()
