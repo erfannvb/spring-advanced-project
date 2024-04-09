@@ -3,6 +3,7 @@ package nvb.dev.springadvancedproject;
 import nvb.dev.springadvancedproject.dto.*;
 import nvb.dev.springadvancedproject.dto.request.ChangePasswordRequest;
 import nvb.dev.springadvancedproject.model.*;
+import nvb.dev.springadvancedproject.security.response.JwtAuthResponse;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -297,6 +298,13 @@ public class MotherObject {
                 .oldPassword(ANY_PASSWORD)
                 .newPassword(ANY_STRING)
                 .confirmPassword(ANY_STRING)
+                .build();
+    }
+
+    public static JwtAuthResponse anyValidJwtAuthResponse() {
+        return JwtAuthResponse.builder()
+                .token(ANY_STRING)
+                .refreshToken(ANY_STRING)
                 .build();
     }
 
