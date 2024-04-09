@@ -2,14 +2,15 @@ package nvb.dev.springadvancedproject.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import nvb.dev.springadvancedproject.dto.request.ChangePasswordRequest;
+import nvb.dev.springadvancedproject.exception.user.PasswordsNotMatchException;
+import nvb.dev.springadvancedproject.exception.user.UserNotFoundException;
 import nvb.dev.springadvancedproject.exception.user.UsernameExistsException;
+import nvb.dev.springadvancedproject.exception.user.WrongPasswordException;
 import nvb.dev.springadvancedproject.model.UserEntity;
 import nvb.dev.springadvancedproject.repository.UserRepository;
 import nvb.dev.springadvancedproject.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,22 +28,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changePassword(String userId, ChangePasswordRequest request) {
-        Optional<UserEntity> foundUser = userRepository.findById(userId);
-        if (foundUser.isPresent()) {
+        userRepository.findById(userId)
+                .ifPresentOrElse(
+                        userEntity -> {
+                            validateOldPassword(request.getOldPassword(), userEntity.getPassword());
+                            validateNewPasswords(request.getNewPassword(), request.getConfirmPassword());
+                            userEntity.setPassword(passwordEncoder.encode(request.getNewPassword()));
+                            userRepository.save(userEntity);
+                        },
+                        () -> {
+                            throw new UserNotFoundException();
+                        }
+                );
+    }
 
-            UserEntity userEntity = foundUser.get();
+    private void validateOldPassword(String inputPassword, String storedPassword) {
+        if (!passwordEncoder.matches(inputPassword, storedPassword)) {
+            throw new WrongPasswordException();
+        }
+    }
 
-            if (!passwordEncoder.matches(request.getOldPassword(), userEntity.getPassword())) {
-                throw new IllegalArgumentException("Wrong password");
-            }
-
-            if (!request.getNewPassword().equals(request.getConfirmPassword())) {
-                throw new IllegalArgumentException("Passwords do not match");
-            }
-
-            userEntity.setPassword(passwordEncoder.encode(request.getNewPassword()));
-            userRepository.save(userEntity);
-
+    private void validateNewPasswords(String newPassword, String confirmPassword) {
+        if (!newPassword.equals(confirmPassword)) {
+            throw new PasswordsNotMatchException();
         }
     }
 
