@@ -1,6 +1,7 @@
 package nvb.dev.springadvancedproject;
 
 import nvb.dev.springadvancedproject.dto.*;
+import nvb.dev.springadvancedproject.dto.request.ChangePasswordRequest;
 import nvb.dev.springadvancedproject.model.*;
 
 import java.time.LocalDate;
@@ -289,6 +290,14 @@ public class MotherObject {
         map.put("title", "updatedTitle");
         map.put("isbn", "updatedIsbn");
         return map;
+    }
+
+    public static ChangePasswordRequest anyInvalidChangePasswordRequest() {
+        return ChangePasswordRequest.builder()
+                .oldPassword(ANY_PASSWORD)
+                .newPassword(ANY_STRING)
+                .confirmPassword(ANY_STRING)
+                .build();
     }
 
 }
