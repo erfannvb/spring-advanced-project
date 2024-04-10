@@ -7,13 +7,11 @@ import nvb.dev.springadvancedproject.model.LoanEntity;
 import nvb.dev.springadvancedproject.service.LoanService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/loan")
 @RequiredArgsConstructor
-@Validated
 public class LoanController {
 
     private final LoanService loanService;
