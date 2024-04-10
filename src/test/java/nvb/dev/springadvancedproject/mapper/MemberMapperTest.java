@@ -19,6 +19,12 @@ class MemberMapperTest {
     MemberMapper memberMapper;
 
     @Test
+    void testInstanceIsNotNull() {
+        MemberMapper instance = MemberMapper.INSTANCE;
+        assertNotNull(instance);
+    }
+
+    @Test
     void toMemberDto() {
         MemberDto memberDto = memberMapper.toMemberDto(anyValidMemberEntity());
         assertEquals(anyValidMemberEntity().getId(), memberDto.getId());
@@ -30,7 +36,7 @@ class MemberMapperTest {
     }
 
     @Test
-    void toMemberDto_Null_Fields() {
+    void toMemberDtoNullFields() {
         MemberDto memberDto = memberMapper.toMemberDto(anyInvalidMemberEntity());
         assertNull(memberDto.getId());
         assertNull(memberDto.getFullName());
@@ -41,7 +47,7 @@ class MemberMapperTest {
     }
 
     @Test
-    void toMemberDto_Null() {
+    void toMemberDtoNull() {
         MemberDto memberDto = memberMapper.toMemberDto(null);
         assertNull(memberDto);
     }
@@ -58,7 +64,7 @@ class MemberMapperTest {
     }
 
     @Test
-    void toMemberEntity_Null_Fields() {
+    void toMemberEntityNullFields() {
         MemberEntity memberEntity = memberMapper.toMemberEntity(anyInvalidMemberDto());
         assertNull(memberEntity.getId());
         assertNull(memberEntity.getFullName());
@@ -68,7 +74,7 @@ class MemberMapperTest {
     }
 
     @Test
-    void toMemberEntity_Null() {
+    void toMemberEntityNull() {
         MemberEntity memberEntity = memberMapper.toMemberEntity(null);
         assertNull(memberEntity);
     }
