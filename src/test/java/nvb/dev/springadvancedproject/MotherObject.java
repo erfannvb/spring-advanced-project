@@ -4,12 +4,16 @@ import nvb.dev.springadvancedproject.dto.*;
 import nvb.dev.springadvancedproject.dto.request.ChangePasswordRequest;
 import nvb.dev.springadvancedproject.model.*;
 import nvb.dev.springadvancedproject.security.response.JwtAuthResponse;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static nvb.dev.springadvancedproject.model.UserRole.ADMIN;
 
 public class MotherObject {
 
@@ -305,6 +309,14 @@ public class MotherObject {
         return JwtAuthResponse.builder()
                 .token(ANY_STRING)
                 .refreshToken(ANY_STRING)
+                .build();
+    }
+
+    public static UserDetails anyValidUserDetails() {
+        return User.builder()
+                .username(ANY_STRING)
+                .password(ANY_STRING)
+                .authorities(ADMIN.name())
                 .build();
     }
 
