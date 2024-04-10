@@ -1,6 +1,5 @@
 package nvb.dev.springadvancedproject.assembler;
 
-import lombok.RequiredArgsConstructor;
 import nvb.dev.springadvancedproject.controller.MemberController;
 import nvb.dev.springadvancedproject.dto.MemberDto;
 import nvb.dev.springadvancedproject.mapper.MemberMapper;
@@ -15,15 +14,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-@RequiredArgsConstructor
 public class MemberModelAssembler implements RepresentationModelAssembler<MemberEntity, EntityModel<MemberDto>> {
-
-    private final MemberMapper memberMapper;
 
     @Override
     @NonNull
     public EntityModel<MemberDto> toModel(@NonNull MemberEntity memberEntity) {
-        MemberDto memberDto = memberMapper.toMemberDto(memberEntity);
+        MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(memberEntity);
         return EntityModel.of(memberDto,
                 linkTo(methodOn(MemberController.class).getMemberById(memberDto.getId())).withSelfRel(),
                 linkTo(methodOn(MemberController.class).getAllMembers()).withRel(IanaLinkRelations.COLLECTION));
