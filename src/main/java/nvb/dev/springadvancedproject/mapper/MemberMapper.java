@@ -3,11 +3,14 @@ package nvb.dev.springadvancedproject.mapper;
 import nvb.dev.springadvancedproject.dto.MemberDto;
 import nvb.dev.springadvancedproject.model.MemberEntity;
 import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface MemberMapper {
+
+    MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
     @Mapping(source = "memberEntity.id", target = "id")
     @Mapping(source = "memberEntity.fullName", target = "fullName")
