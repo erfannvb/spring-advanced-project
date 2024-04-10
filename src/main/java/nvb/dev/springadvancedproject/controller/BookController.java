@@ -71,7 +71,7 @@ public class BookController {
         return new ResponseEntity<>(bookDtoList, HttpStatus.OK);
     }
 
-    @PutMapping(path = "/{bookId}/{authorId}")
+    @PutMapping(path = "/{bookId}/author/{authorId}")
     public ResponseEntity<BookDto> updateBook(@PathVariable long bookId,
                                               @PathVariable long authorId,
                                               @RequestBody @Valid BookDto bookDto) {
@@ -80,10 +80,10 @@ public class BookController {
         return new ResponseEntity<>(bookMapper.toBookDto(updatedBook), HttpStatus.OK);
     }
 
-    @PatchMapping(path = "/{bookId}/{authorId}")
+    @PatchMapping(path = "/{bookId}/author/{authorId}")
     public ResponseEntity<BookDto> partialUpdate(@PathVariable long bookId,
                                                  @PathVariable long authorId,
-                                                 @RequestBody @Valid Map<String, Object> bookDto) {
+                                                 @RequestBody Map<String, Object> bookDto) {
         BookEntity bookEntity = bookService.partialUpdate(bookId, authorId, bookDto);
         return new ResponseEntity<>(bookMapper.toBookDto(bookEntity), HttpStatus.OK);
     }
