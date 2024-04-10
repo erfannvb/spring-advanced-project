@@ -17,11 +17,8 @@ public class MemberModelAssembler implements RepresentationModelAssembler<Member
     @Override
     @NonNull
     public EntityModel<MemberEntity> toModel(@NonNull MemberEntity member) {
-        EntityModel<MemberEntity> memberModel = EntityModel.of(member);
-
-        memberModel.add(linkTo(methodOn(MemberController.class).getMemberById(member.getId())).withSelfRel());
-        memberModel.add(linkTo(methodOn(MemberController.class).getAllMembers()).withRel(IanaLinkRelations.COLLECTION));
-
-        return memberModel;
+        return EntityModel.of(member,
+                linkTo(methodOn(MemberController.class).getMemberById(member.getId())).withSelfRel(),
+                linkTo(methodOn(MemberController.class).getAllMembers()).withRel(IanaLinkRelations.COLLECTION));
     }
 }
