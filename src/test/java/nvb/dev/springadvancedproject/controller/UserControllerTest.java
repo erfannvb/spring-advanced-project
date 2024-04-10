@@ -1,6 +1,7 @@
 package nvb.dev.springadvancedproject.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nvb.dev.springadvancedproject.dto.UserDto;
 import nvb.dev.springadvancedproject.dto.request.ChangePasswordRequest;
 import nvb.dev.springadvancedproject.mapper.UserMapper;
 import nvb.dev.springadvancedproject.model.UserEntity;
@@ -59,6 +60,216 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.firstName").value("dummy"))
                 .andExpect(jsonPath("$.lastName").value("dummy"));
+    }
+
+    @Test
+    void testThatSaveUserReturnsHttpStatusCode400BadRequestWhenFirstNameIsBlank() throws Exception {
+        UserEntity userEntity = anyValidUserEntity();
+        userEntity.setFirstName("");
+
+        UserDto userDto = anyValidUserDto();
+        userDto.setFirstName("");
+
+        when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
+        when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
+        when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+
+        String userJson = objectMapper.writeValueAsString(userDto);
+
+        mockMvc.perform(post("/api/user/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson)
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testThatSaveUserReturnsHttpStatusCode400BadRequestWhenFirstNameIsNull() throws Exception {
+        UserEntity userEntity = anyValidUserEntity();
+        userEntity.setFirstName(null);
+
+        UserDto userDto = anyValidUserDto();
+        userDto.setFirstName(null);
+
+        when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
+        when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
+        when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+
+        String userJson = objectMapper.writeValueAsString(userDto);
+
+        mockMvc.perform(post("/api/user/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson)
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testThatSaveUserReturnsHttpStatusCode400BadRequestWhenLastNameIsBlank() throws Exception {
+        UserEntity userEntity = anyValidUserEntity();
+        userEntity.setLastName("");
+
+        UserDto userDto = anyValidUserDto();
+        userDto.setLastName("");
+
+        when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
+        when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
+        when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+
+        String userJson = objectMapper.writeValueAsString(userDto);
+
+        mockMvc.perform(post("/api/user/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson)
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testThatSaveUserReturnsHttpStatusCode400BadRequestWhenLastNameIsNull() throws Exception {
+        UserEntity userEntity = anyValidUserEntity();
+        userEntity.setLastName(null);
+
+        UserDto userDto = anyValidUserDto();
+        userDto.setLastName(null);
+
+        when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
+        when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
+        when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+
+        String userJson = objectMapper.writeValueAsString(userDto);
+
+        mockMvc.perform(post("/api/user/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson)
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testThatSaveUserReturnsHttpStatusCode400BadRequestWhenUsernameIsBlank() throws Exception {
+        UserEntity userEntity = anyValidUserEntity();
+        userEntity.setUsername("");
+
+        UserDto userDto = anyValidUserDto();
+        userDto.setUsername("");
+
+        when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
+        when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
+        when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+
+        String userJson = objectMapper.writeValueAsString(userDto);
+
+        mockMvc.perform(post("/api/user/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson)
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testThatSaveUserReturnsHttpStatusCode400BadRequestWhenUsernameIsNull() throws Exception {
+        UserEntity userEntity = anyValidUserEntity();
+        userEntity.setUsername(null);
+
+        UserDto userDto = anyValidUserDto();
+        userDto.setUsername(null);
+
+        when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
+        when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
+        when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+
+        String userJson = objectMapper.writeValueAsString(userDto);
+
+        mockMvc.perform(post("/api/user/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson)
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testThatSaveUserReturnsHttpStatusCode400BadRequestWhenEmailIsBlank() throws Exception {
+        UserEntity userEntity = anyValidUserEntity();
+        userEntity.setEmail("");
+
+        UserDto userDto = anyValidUserDto();
+        userDto.setEmail("");
+
+        when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
+        when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
+        when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+
+        String userJson = objectMapper.writeValueAsString(userDto);
+
+        mockMvc.perform(post("/api/user/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson)
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testThatSaveUserReturnsHttpStatusCode400BadRequestWhenEmailIsNull() throws Exception {
+        UserEntity userEntity = anyValidUserEntity();
+        userEntity.setEmail(null);
+
+        UserDto userDto = anyValidUserDto();
+        userDto.setEmail(null);
+
+        when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
+        when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
+        when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+
+        String userJson = objectMapper.writeValueAsString(userDto);
+
+        mockMvc.perform(post("/api/user/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson)
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testThatSaveUserReturnsHttpStatusCode400BadRequestWhenPasswordIsBlank() throws Exception {
+        UserEntity userEntity = anyValidUserEntity();
+        userEntity.setPassword("");
+
+        UserDto userDto = anyValidUserDto();
+        userDto.setPassword("");
+
+        when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
+        when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
+        when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+
+        String userJson = objectMapper.writeValueAsString(userDto);
+
+        mockMvc.perform(post("/api/user/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson)
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testThatSaveUserReturnsHttpStatusCode400BadRequestWhenPasswordIsNull() throws Exception {
+        UserEntity userEntity = anyValidUserEntity();
+        userEntity.setPassword(null);
+
+        UserDto userDto = anyValidUserDto();
+        userDto.setPassword(null);
+
+        when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
+        when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
+        when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+
+        String userJson = objectMapper.writeValueAsString(userDto);
+
+        mockMvc.perform(post("/api/user/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson)
+                )
+                .andExpect(status().isBadRequest());
     }
 
     @Test
