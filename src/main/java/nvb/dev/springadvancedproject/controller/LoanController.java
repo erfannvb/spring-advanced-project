@@ -1,6 +1,5 @@
 package nvb.dev.springadvancedproject.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nvb.dev.springadvancedproject.dto.LoanDto;
 import nvb.dev.springadvancedproject.mapper.LoanMapper;
@@ -23,15 +22,16 @@ public class LoanController {
     @PostMapping(path = "/submit/member/{memberId}/book/{bookId}")
     public ResponseEntity<LoanDto> loanBookToMember(@PathVariable long memberId,
                                                     @PathVariable long bookId,
-                                                    @RequestBody @Valid LoanDto loanDto) {
+                                                    @RequestBody LoanDto loanDto) {
         LoanEntity loanEntity = loanMapper.toLoanEntity(loanDto);
         LoanEntity loanedBookToMember = loanService.loanBookToMember(memberId, bookId, loanEntity);
         return new ResponseEntity<>(loanMapper.toLoanDto(loanedBookToMember), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/delete/member/{memberId}/book/{bookId}")
-    public void deleteLoan(@PathVariable long memberId, @PathVariable long bookId) {
+    public ResponseEntity<HttpStatus> deleteLoan(@PathVariable long memberId, @PathVariable long bookId) {
         loanService.deleteLoan(memberId, bookId);
+        return ResponseEntity.noContent().build();
     }
 
 }
