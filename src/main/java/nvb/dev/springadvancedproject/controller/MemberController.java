@@ -72,7 +72,7 @@ public class MemberController {
 
     @PatchMapping(path = "/{memberId}")
     public ResponseEntity<EntityModel<MemberDto>> partialUpdate(@PathVariable long memberId,
-                                                                @RequestBody @Valid Map<String, Object> memberDto) {
+                                                                @RequestBody Map<String, Object> memberDto) {
         MemberEntity memberEntity = memberService.partialUpdate(memberId, memberDto);
         EntityModel<MemberDto> model = memberModelAssembler.toModel(memberEntity);
         return new ResponseEntity<>(model, HttpStatus.OK);
