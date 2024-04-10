@@ -73,6 +73,7 @@ public class MemberServiceImpl implements MemberService {
             existingMember.setFullName(memberEntity.getFullName());
             existingMember.setEmail(memberEntity.getEmail());
             existingMember.setAddress(memberEntity.getAddress());
+            existingMember.setType(memberEntity.getType());
 
             return memberRepository.save(existingMember);
 
