@@ -2,6 +2,7 @@ package nvb.dev.springadvancedproject;
 
 import nvb.dev.springadvancedproject.dto.*;
 import nvb.dev.springadvancedproject.dto.request.ChangePasswordRequest;
+import nvb.dev.springadvancedproject.dto.request.MailRequest;
 import nvb.dev.springadvancedproject.model.*;
 import nvb.dev.springadvancedproject.security.response.JwtAuthResponse;
 import org.springframework.security.core.userdetails.User;
@@ -317,6 +318,14 @@ public class MotherObject {
                 .username(ANY_STRING)
                 .password(ANY_STRING)
                 .authorities(ADMIN.name())
+                .build();
+    }
+
+    public static MailRequest anyValidMailRequest() {
+        return MailRequest.builder()
+                .recipient(ANY_EMAIL)
+                .subject(ANY_STRING)
+                .message(ANY_STRING)
                 .build();
     }
 
