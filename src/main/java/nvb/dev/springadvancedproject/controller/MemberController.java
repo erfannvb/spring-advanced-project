@@ -4,8 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nvb.dev.springadvancedproject.assembler.MemberModelAssembler;
 import nvb.dev.springadvancedproject.dto.MemberDto;
+import nvb.dev.springadvancedproject.dto.request.MailRequest;
 import nvb.dev.springadvancedproject.mapper.MemberMapper;
 import nvb.dev.springadvancedproject.model.MemberEntity;
+import nvb.dev.springadvancedproject.service.MailService;
 import nvb.dev.springadvancedproject.service.MemberService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -27,11 +29,19 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberMapper memberMapper;
     private final MemberModelAssembler memberModelAssembler;
+    private final MailService mailService;
 
     @PostMapping(path = "/save")
     public ResponseEntity<EntityModel<MemberDto>> saveMember(@RequestBody @Valid MemberDto memberDto) {
         MemberEntity memberEntity = memberMapper.toMemberEntity(memberDto);
         MemberEntity savedMember = memberService.saveMember(memberEntity);
+
+        mailService.sendMail(MailRequest.builder()
+                .recipient(memberDto.getEmail())
+                .subject("Sign Up")
+                .message("Welcome to the Library Management System")
+                .build());
+
         EntityModel<MemberDto> model = memberModelAssembler.toModel(savedMember);
         return new ResponseEntity<>(model, HttpStatus.CREATED);
     }
