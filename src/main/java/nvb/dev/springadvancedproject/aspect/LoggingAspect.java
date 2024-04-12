@@ -16,7 +16,7 @@ public class LoggingAspect {
     // * matches any return type
     // *.*.* match any class, any method, and any number of arguments
     // (..) matches any number of arguments of any type
-    @Pointcut(value = "execution(* nvb.dev.springadvancedproject.*.*.*(..))")
+    @Pointcut(value = "execution(* nvb.dev.springadvancedproject.controller.*.*(..))")
     public void pointCut() {
     }
 
