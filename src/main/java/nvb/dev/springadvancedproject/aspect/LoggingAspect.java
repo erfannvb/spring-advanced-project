@@ -28,14 +28,14 @@ public class LoggingAspect {
         String methodName = proceedingJoinPoint.getSignature().getName();
         Object[] argsArray = proceedingJoinPoint.getArgs();
 
-        log.info("Invoked method : {}", methodName);
         log.info("Class name : {}", className);
+        log.info("Method name : {}", methodName);
         log.info("Arguments : {}", objectMapper.writeValueAsString(argsArray));
 
         Object result = proceedingJoinPoint.proceed(); // proceed() captures the result
 
-        log.info("Method name : {}", methodName);
         log.info("Class name : {}", className);
+        log.info("Method name : {}", methodName);
         log.info("Response : {}", objectMapper.writeValueAsString(result));
 
         return result;
