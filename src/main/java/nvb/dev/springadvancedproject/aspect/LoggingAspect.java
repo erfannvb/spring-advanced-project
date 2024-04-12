@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LoggingAspect {
 
+    // * matches any return type
+    // *.*.* match any class, any method, and any number of arguments
+    // (..) matches any number of arguments of any type
     @Pointcut(value = "execution(* nvb.dev.springadvancedproject.*.*.*(..))")
     public void pointCut() {
     }
@@ -29,7 +32,7 @@ public class LoggingAspect {
         log.info("Class name : {}", className);
         log.info("Arguments : {}", objectMapper.writeValueAsString(argsArray));
 
-        Object result = proceedingJoinPoint.proceed();
+        Object result = proceedingJoinPoint.proceed(); // proceed() captures the result
 
         log.info("Method name : {}", methodName);
         log.info("Class name : {}", className);
