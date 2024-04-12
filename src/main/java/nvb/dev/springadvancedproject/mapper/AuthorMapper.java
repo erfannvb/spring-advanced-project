@@ -3,11 +3,14 @@ package nvb.dev.springadvancedproject.mapper;
 import nvb.dev.springadvancedproject.dto.AuthorDto;
 import nvb.dev.springadvancedproject.model.AuthorEntity;
 import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface AuthorMapper {
+
+    AuthorMapper INSTANCE = Mappers.getMapper(AuthorMapper.class);
 
     @Mapping(source = "authorEntity.id", target = "id")
     @Mapping(source = "authorEntity.firstName", target = "firstName")

@@ -3,11 +3,14 @@ package nvb.dev.springadvancedproject.mapper;
 import nvb.dev.springadvancedproject.dto.BookDto;
 import nvb.dev.springadvancedproject.model.BookEntity;
 import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface BookMapper {
+
+    BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
 
     @Mapping(source = "bookEntity.id", target = "id")
     @Mapping(source = "bookEntity.title", target = "title")
