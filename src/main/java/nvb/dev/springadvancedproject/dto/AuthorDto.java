@@ -1,5 +1,6 @@
 package nvb.dev.springadvancedproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Data
 @Builder
+@JsonRootName(value = "author")
 public class AuthorDto implements Serializable {
 
     private Long id;

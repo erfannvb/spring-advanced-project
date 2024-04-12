@@ -1,5 +1,6 @@
 package nvb.dev.springadvancedproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Data
 @Builder
+@JsonRootName(value = "member")
 public class MemberDto implements Serializable {
 
     private Long id;
