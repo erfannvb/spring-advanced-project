@@ -5,6 +5,7 @@ import nvb.dev.springadvancedproject.security.filter.JwtAuthenticationFilter;
 import nvb.dev.springadvancedproject.security.impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -39,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers(BOOK_URL).authenticated()
                         .requestMatchers(MEMBER_URL).authenticated()
                         .requestMatchers(LOAN_URL).authenticated()
+                        .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
