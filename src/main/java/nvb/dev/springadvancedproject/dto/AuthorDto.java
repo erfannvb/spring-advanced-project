@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import nvb.dev.springadvancedproject.model.BookEntity;
+import org.springframework.hateoas.server.core.Relation;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Data
 @Builder
 @JsonRootName(value = "author")
+@Relation(itemRelation = "author", collectionRelation = "authors")
 public class AuthorDto implements Serializable {
 
     private Long id;

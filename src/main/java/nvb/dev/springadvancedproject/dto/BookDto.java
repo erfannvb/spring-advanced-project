@@ -10,6 +10,7 @@ import lombok.Data;
 import nvb.dev.springadvancedproject.model.AuthorEntity;
 import nvb.dev.springadvancedproject.model.LoanEntity;
 import nvb.dev.springadvancedproject.model.MemberEntity;
+import org.springframework.hateoas.server.core.Relation;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import java.util.List;
 @Data
 @Builder
 @JsonRootName(value = "book")
+@Relation(itemRelation = "book", collectionRelation = "books")
 public class BookDto implements Serializable {
 
     private Long id;
