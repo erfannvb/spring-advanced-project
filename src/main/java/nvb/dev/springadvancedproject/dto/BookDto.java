@@ -17,7 +17,7 @@ import java.util.List;
 
 @Data
 @Builder
-@JsonRootName(value = "book")
+//@JsonRootName(value = "book")
 public class BookDto implements Serializable {
 
     private Long id;

@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-@JsonRootName(value = "loan")
+//@JsonRootName(value = "loan")
 public class LoanDto implements Serializable {
 
     private Long id;

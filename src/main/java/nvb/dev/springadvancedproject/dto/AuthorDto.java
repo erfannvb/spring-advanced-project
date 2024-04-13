@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Builder
-@JsonRootName(value = "author")
+//@JsonRootName(value = "author")
 public class AuthorDto implements Serializable {
 
     private Long id;
