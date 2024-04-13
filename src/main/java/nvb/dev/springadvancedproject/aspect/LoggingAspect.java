@@ -1,5 +1,6 @@
 package nvb.dev.springadvancedproject.aspect;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -30,13 +31,21 @@ public class LoggingAspect {
 
         log.info("Class name : {}", className);
         log.info("Method name : {}", methodName);
-        log.info("Arguments : {}", objectMapper.writeValueAsString(argsArray));
+        try {
+            log.info("Arguments : {}", objectMapper.writeValueAsString(argsArray));
+        } catch (JsonProcessingException e) {
+            log.error("Error converting arguments to JSON: {}", e.getMessage());
+        }
 
         Object result = proceedingJoinPoint.proceed(); // proceed() captures the result
 
         log.info("Class name : {}", className);
         log.info("Method name : {}", methodName);
-        log.info("Response : {}", objectMapper.writeValueAsString(result));
+        try {
+            log.info("Response : {}", objectMapper.writeValueAsString(result));
+        } catch (JsonProcessingException e) {
+            log.error("Error converting arguments to JSON: {}", e.getMessage());
+        }
 
         return result;
     }
