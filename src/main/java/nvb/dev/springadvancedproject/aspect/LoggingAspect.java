@@ -44,7 +44,7 @@ public class LoggingAspect {
         try {
             log.info("Response : {}", objectMapper.writeValueAsString(result));
         } catch (JsonProcessingException e) {
-            log.error("Error converting arguments to JSON: {}", e.getMessage());
+            log.error("Error processing the result: {}", e.getMessage());
         }
 
         return result;
