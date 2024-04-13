@@ -19,6 +19,12 @@ class UserMapperTest {
     UserMapper userMapper;
 
     @Test
+    void testUserInstanceIsNotNull() {
+        UserMapper instance = UserMapper.INSTANCE;
+        assertNotNull(instance);
+    }
+
+    @Test
     void toUserDto() {
         UserDto userDto = userMapper.toUserDto(anyValidUserEntity());
         assertEquals(anyValidUserEntity().getId(), userDto.getId());
