@@ -1,6 +1,5 @@
 package nvb.dev.springadvancedproject.dto;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
@@ -17,7 +16,6 @@ import java.util.List;
 
 @Data
 @Builder
-//@JsonRootName(value = "book")
 public class BookDto implements Serializable {
 
     private Long id;

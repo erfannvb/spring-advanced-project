@@ -1,6 +1,5 @@
 package nvb.dev.springadvancedproject.dto;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Builder;
@@ -13,7 +12,6 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-//@JsonRootName(value = "loan")
 public class LoanDto implements Serializable {
 
     private Long id;
