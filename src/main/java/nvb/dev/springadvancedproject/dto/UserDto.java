@@ -1,6 +1,5 @@
 package nvb.dev.springadvancedproject.dto;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
@@ -13,7 +12,6 @@ import nvb.dev.springadvancedproject.model.UserRole;
 
 @Data
 @Builder
-@JsonRootName(value = "user")
 public class UserDto {
 
     private String id;
