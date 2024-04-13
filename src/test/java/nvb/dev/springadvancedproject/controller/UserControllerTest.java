@@ -1,6 +1,7 @@
 package nvb.dev.springadvancedproject.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nvb.dev.springadvancedproject.assembler.UserModelAssembler;
 import nvb.dev.springadvancedproject.dto.UserDto;
 import nvb.dev.springadvancedproject.dto.request.ChangePasswordRequest;
 import nvb.dev.springadvancedproject.mapper.UserMapper;
@@ -41,6 +42,9 @@ class UserControllerTest {
     @Mock
     UserMapper userMapper;
 
+    @Mock
+    UserModelAssembler userModelAssembler;
+
     @MockBean
     UserService userService;
 
@@ -49,6 +53,7 @@ class UserControllerTest {
         when(userService.saveUser(any(UserEntity.class))).thenReturn(anyValidUserEntity());
         when(userMapper.toUserEntity(anyValidUserDto())).thenReturn(anyValidUserEntity());
         when(userMapper.toUserDto(anyValidUserEntity())).thenReturn(anyValidUserDto());
+        when(userModelAssembler.toModel(any(UserEntity.class))).thenReturn(null);
 
         String userJson = objectMapper.writeValueAsString(anyValidUserDto());
 
@@ -73,6 +78,7 @@ class UserControllerTest {
         when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
         when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
         when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+        when(userModelAssembler.toModel(any(UserEntity.class))).thenReturn(null);
 
         String userJson = objectMapper.writeValueAsString(userDto);
 
@@ -94,6 +100,7 @@ class UserControllerTest {
         when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
         when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
         when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+        when(userModelAssembler.toModel(any(UserEntity.class))).thenReturn(null);
 
         String userJson = objectMapper.writeValueAsString(userDto);
 
@@ -115,6 +122,7 @@ class UserControllerTest {
         when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
         when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
         when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+        when(userModelAssembler.toModel(any(UserEntity.class))).thenReturn(null);
 
         String userJson = objectMapper.writeValueAsString(userDto);
 
@@ -136,6 +144,7 @@ class UserControllerTest {
         when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
         when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
         when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+        when(userModelAssembler.toModel(any(UserEntity.class))).thenReturn(null);
 
         String userJson = objectMapper.writeValueAsString(userDto);
 
@@ -157,6 +166,7 @@ class UserControllerTest {
         when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
         when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
         when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+        when(userModelAssembler.toModel(any(UserEntity.class))).thenReturn(null);
 
         String userJson = objectMapper.writeValueAsString(userDto);
 
@@ -178,6 +188,7 @@ class UserControllerTest {
         when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
         when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
         when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+        when(userModelAssembler.toModel(any(UserEntity.class))).thenReturn(null);
 
         String userJson = objectMapper.writeValueAsString(userDto);
 
@@ -199,6 +210,7 @@ class UserControllerTest {
         when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
         when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
         when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+        when(userModelAssembler.toModel(any(UserEntity.class))).thenReturn(null);
 
         String userJson = objectMapper.writeValueAsString(userDto);
 
@@ -220,6 +232,7 @@ class UserControllerTest {
         when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
         when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
         when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+        when(userModelAssembler.toModel(any(UserEntity.class))).thenReturn(null);
 
         String userJson = objectMapper.writeValueAsString(userDto);
 
@@ -241,6 +254,7 @@ class UserControllerTest {
         when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
         when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
         when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+        when(userModelAssembler.toModel(any(UserEntity.class))).thenReturn(null);
 
         String userJson = objectMapper.writeValueAsString(userDto);
 
@@ -262,6 +276,7 @@ class UserControllerTest {
         when(userService.saveUser(any(UserEntity.class))).thenReturn(userEntity);
         when(userMapper.toUserEntity(userDto)).thenReturn(userEntity);
         when(userMapper.toUserDto(userEntity)).thenReturn(userDto);
+        when(userModelAssembler.toModel(any(UserEntity.class))).thenReturn(null);
 
         String userJson = objectMapper.writeValueAsString(userDto);
 
@@ -284,7 +299,7 @@ class UserControllerTest {
 
         String password = objectMapper.writeValueAsString(request);
 
-        mockMvc.perform(patch("/api/user/123")
+        mockMvc.perform(patch("/api/user/change-password/123")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(password)
                 )
