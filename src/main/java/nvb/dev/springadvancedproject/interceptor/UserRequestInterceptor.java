@@ -6,6 +6,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.Objects;
+
 @Component
 public class UserRequestInterceptor implements HandlerInterceptor {
 
@@ -15,6 +17,9 @@ public class UserRequestInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NonNull HttpServletRequest request,
                              @NonNull HttpServletResponse response,
                              @NonNull Object handler) throws Exception {
-        return HandlerInterceptor.super.preHandle(request, response, handler);
+        if (!Objects.equals(request.getHeader("X-Requested-With"), "test")) {
+            throw new IllegalArgumentException("X-Requested-With is not supported.");
+        }
+        return true;
     }
 }
