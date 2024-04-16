@@ -9,7 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import java.util.Objects;
 
 @Component
-public class UserRequestInterceptor implements HandlerInterceptor {
+public class RequestInterceptor implements HandlerInterceptor {
 
     // Only for test purposes
 
