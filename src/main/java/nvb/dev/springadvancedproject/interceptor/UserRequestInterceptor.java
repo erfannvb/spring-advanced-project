@@ -17,8 +17,8 @@ public class UserRequestInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NonNull HttpServletRequest request,
                              @NonNull HttpServletResponse response,
                              @NonNull Object handler) throws Exception {
-        if (!Objects.equals(request.getHeader("X-Requested-With"), "test")) {
-            throw new IllegalArgumentException("X-Requested-With is not supported.");
+        if (!Objects.equals(request.getHeader("X-Requested-Area"), "dev")) {
+            throw new IllegalArgumentException("X-Requested-Area is invalid.");
         }
         return true;
     }
