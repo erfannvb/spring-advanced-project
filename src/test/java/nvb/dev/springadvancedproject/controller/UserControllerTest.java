@@ -59,6 +59,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/api/user/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(userJson)
                 )
                 .andExpect(status().isCreated())
@@ -84,6 +85,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/api/user/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(userJson)
                 )
                 .andExpect(status().isBadRequest());
@@ -106,6 +108,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/api/user/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(userJson)
                 )
                 .andExpect(status().isBadRequest());
@@ -128,6 +131,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/api/user/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(userJson)
                 )
                 .andExpect(status().isBadRequest());
@@ -150,6 +154,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/api/user/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(userJson)
                 )
                 .andExpect(status().isBadRequest());
@@ -172,6 +177,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/api/user/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(userJson)
                 )
                 .andExpect(status().isBadRequest());
@@ -194,6 +200,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/api/user/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(userJson)
                 )
                 .andExpect(status().isBadRequest());
@@ -216,6 +223,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/api/user/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(userJson)
                 )
                 .andExpect(status().isBadRequest());
@@ -238,6 +246,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/api/user/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(userJson)
                 )
                 .andExpect(status().isBadRequest());
@@ -260,6 +269,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/api/user/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(userJson)
                 )
                 .andExpect(status().isBadRequest());
@@ -282,6 +292,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/api/user/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(userJson)
                 )
                 .andExpect(status().isBadRequest());
@@ -301,6 +312,7 @@ class UserControllerTest {
 
         mockMvc.perform(patch("/api/user/change-password/123")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(password)
                 )
                 .andExpect(status().isOk());

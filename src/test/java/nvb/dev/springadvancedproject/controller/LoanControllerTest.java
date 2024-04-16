@@ -74,6 +74,7 @@ class LoanControllerTest {
 
         mockMvc.perform(post("/api/loan/submit/member/1/book/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(loanJson)
                 )
@@ -88,6 +89,7 @@ class LoanControllerTest {
 
         mockMvc.perform(delete("/api/loan/delete/member/1/book/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isNoContent());

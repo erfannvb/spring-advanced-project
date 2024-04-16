@@ -44,6 +44,7 @@ class AuthControllerTest {
 
         mockMvc.perform(post("/api/auth/authenticate")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(response)
                 )
                 .andExpect(status().isOk());
@@ -57,6 +58,7 @@ class AuthControllerTest {
 
         mockMvc.perform(post("/api/auth/refresh")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .content(response)
                 )
                 .andExpect(status().isOk());

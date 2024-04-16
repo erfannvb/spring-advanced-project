@@ -85,6 +85,7 @@ class MemberControllerTest {
 
         mockMvc.perform(post("/api/member/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -111,6 +112,7 @@ class MemberControllerTest {
 
         mockMvc.perform(post("/api/member/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -137,6 +139,7 @@ class MemberControllerTest {
 
         mockMvc.perform(post("/api/member/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -163,6 +166,7 @@ class MemberControllerTest {
 
         mockMvc.perform(post("/api/member/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -189,6 +193,7 @@ class MemberControllerTest {
 
         mockMvc.perform(post("/api/member/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -215,6 +220,7 @@ class MemberControllerTest {
 
         mockMvc.perform(post("/api/member/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -233,6 +239,7 @@ class MemberControllerTest {
 
         mockMvc.perform(get("/api/member/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isOk());
@@ -250,6 +257,7 @@ class MemberControllerTest {
 
         mockMvc.perform(get("/api/member/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isNotFound());
@@ -268,6 +276,7 @@ class MemberControllerTest {
         mockMvc.perform(get("/api/member")
                         .queryParam("fullName", "dummy")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isOk());
@@ -286,6 +295,7 @@ class MemberControllerTest {
         mockMvc.perform(get("/api/member")
                         .queryParam("fullName", "dummy")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isNotFound());
@@ -303,6 +313,7 @@ class MemberControllerTest {
 
         mockMvc.perform(get("/api/member/all")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isOk());
@@ -320,6 +331,7 @@ class MemberControllerTest {
 
         mockMvc.perform(get("/api/member/all")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isNotFound());
@@ -339,6 +351,7 @@ class MemberControllerTest {
 
         mockMvc.perform(put("/api/member/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -365,6 +378,7 @@ class MemberControllerTest {
 
         mockMvc.perform(put("/api/member/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -391,6 +405,7 @@ class MemberControllerTest {
 
         mockMvc.perform(put("/api/member/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -417,6 +432,7 @@ class MemberControllerTest {
 
         mockMvc.perform(put("/api/member/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -443,6 +459,7 @@ class MemberControllerTest {
 
         mockMvc.perform(put("/api/member/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -469,6 +486,7 @@ class MemberControllerTest {
 
         mockMvc.perform(put("/api/member/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -489,6 +507,7 @@ class MemberControllerTest {
 
         mockMvc.perform(patch("/api/member/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(memberJson)
                 )
@@ -503,6 +522,7 @@ class MemberControllerTest {
 
         mockMvc.perform(delete("/api/member/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isNoContent());

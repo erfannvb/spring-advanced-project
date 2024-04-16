@@ -77,6 +77,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(post("/api/author/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(authorJson)
                 )
@@ -105,6 +106,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(post("/api/author/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(authorJson)
                 )
@@ -130,6 +132,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(post("/api/author/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(authorJson)
                 )
@@ -155,6 +158,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(post("/api/author/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(authorJson)
                 )
@@ -180,6 +184,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(post("/api/author/save")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(authorJson)
                 )
@@ -197,6 +202,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(get("/api/author/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isOk());
@@ -213,6 +219,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(get("/api/author/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isNotFound());
@@ -231,6 +238,7 @@ class AuthorControllerTest {
                         .param("page", "0")
                         .param("size", "10")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isOk());
@@ -250,6 +258,7 @@ class AuthorControllerTest {
                         .param("size", "10")
                         .param("sortProperty", "id")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isOk());
@@ -268,6 +277,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(put("/api/author/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(authorJson)
                 )
@@ -287,6 +297,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(patch("/api/author/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                         .content(authorJson)
                 )
@@ -301,6 +312,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(delete("/api/author/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isNoContent());
@@ -318,6 +330,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(get("/api/author/count")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isOk());
@@ -335,6 +348,7 @@ class AuthorControllerTest {
         mockMvc.perform(get("/api/author/filter/name")
                         .queryParam("firstName", "dummy")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isOk());
@@ -352,6 +366,7 @@ class AuthorControllerTest {
         mockMvc.perform(get("/api/author/filter/name")
                         .queryParam("firstName", "dummy")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isNotFound());
@@ -370,6 +385,7 @@ class AuthorControllerTest {
                         .queryParam("minAge", "20")
                         .queryParam("maxAge", "30")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-requested-area", "dev")
                         .header("Authorization", BEARER + token)
                 )
                 .andExpect(status().isOk());
